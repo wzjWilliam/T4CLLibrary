@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T4CLLibrary", "T4CLLibrary\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T4CLLibraryUnitTest", "T4CLLibraryUnitTest\T4CLLibraryUnitTest.csproj", "{45C141FD-12F7-4A8E-B4F5-1DD9E1CBDB01}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo", "Demo\Demo.csproj", "{6D944462-F949-4C32-B9CA-F94B4D3AEB3C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,14 @@ Global
 		{45C141FD-12F7-4A8E-B4F5-1DD9E1CBDB01}.Release|Any CPU.Build.0 = Release|Any CPU
 		{45C141FD-12F7-4A8E-B4F5-1DD9E1CBDB01}.Release|x64.ActiveCfg = Release|Any CPU
 		{45C141FD-12F7-4A8E-B4F5-1DD9E1CBDB01}.Release|x64.Build.0 = Release|Any CPU
+		{6D944462-F949-4C32-B9CA-F94B4D3AEB3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D944462-F949-4C32-B9CA-F94B4D3AEB3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D944462-F949-4C32-B9CA-F94B4D3AEB3C}.Debug|x64.ActiveCfg = Debug|x64
+		{6D944462-F949-4C32-B9CA-F94B4D3AEB3C}.Debug|x64.Build.0 = Debug|x64
+		{6D944462-F949-4C32-B9CA-F94B4D3AEB3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D944462-F949-4C32-B9CA-F94B4D3AEB3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D944462-F949-4C32-B9CA-F94B4D3AEB3C}.Release|x64.ActiveCfg = Release|Any CPU
+		{6D944462-F949-4C32-B9CA-F94B4D3AEB3C}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

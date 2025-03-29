@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace T4CLLibrary.Jfglzs
 {
-    public class CustomRandom
+    internal class CustomRandom
     {
         private static int m_rndSeed = 327680;
 

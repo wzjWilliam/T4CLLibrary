@@ -18,6 +18,10 @@ namespace T4CLLibrary.Mythware
         private const string ValueName = "Knock1";
         #endregion
 
+        /// <summary>
+        /// 从注册表获取加密后的密码
+        /// </summary>
+        /// <returns>加密后密码的字节数组</returns>
         public static byte[] GetEncryptedPassword()
         {
             using (RegistryKey registryKey = Registry.LocalMachine.OpenSubKey(RegistryPath))
@@ -25,6 +29,11 @@ namespace T4CLLibrary.Mythware
                 return registryKey.GetValue(ValueName) as byte[];
             }
         }
+
+        /// <summary>
+        /// 将加密后的密码写入注册表
+        /// </summary>
+        /// <param name="password">要设置的密码</param>
         public static void SetEncryptedPassword(byte[] password)
         {
             using (RegistryKey registryKey = Registry.LocalMachine.CreateSubKey(RegistryPath))

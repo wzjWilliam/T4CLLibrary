@@ -5,21 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualBasic;
+using T4CLLibrary;
 
 namespace T4CLLibrary.Jfglzs
 {
     public static class ProcessKiller
     {
         private static readonly string[] unchangedProcessNames = { "jfglzs", "przs.exe", "zmserv"};
-
-        /// <summary>
-        /// 根据进程名杀死进程
-        /// </summary>
-        /// <param name="processName">进程名</param>
-        public static void KillProcessByName(string processName)
-        {
-            Process.GetProcessesByName(processName).ToList().ForEach(p => p.Kill());
-        }
 
         /// <summary>
         /// 获取随机进程名
@@ -44,16 +36,16 @@ namespace T4CLLibrary.Jfglzs
             return withExtensionName ? text + ".exe" : text;
         }
 
+        /// <summary>
+        /// 杀死机房管理助手所有进程
+        /// </summary>
         public static void KillAllProcesses()
         {
             foreach (var processName in unchangedProcessNames)
             {
-                KillProcessByName(processName);
+                ProcessHelper.KillProcessByName(processName);
             }
-            KillProcessByName(GetRandomProcessName(DateTime.Now.Month * DateTime.Now.Day));
+            ProcessHelper.KillProcessByName(GetRandomProcessName(DateTime.Now.Month * DateTime.Now.Day));
         }
-
-        
-
     }
 }
