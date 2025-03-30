@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Jfglzs\CustomRandom.cs" />
+    <Compile Include="Jfglzs\PasswordCracker.cs" />
     <Compile Include="Jfglzs\ProcessKiller.cs" />
     <Compile Include="Mythware\PasswordCracker.cs" />
     <Compile Include="Mythware\ProcessManager.cs" />

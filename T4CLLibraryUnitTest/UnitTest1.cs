@@ -21,6 +21,11 @@ namespace T4CLLibraryUnitTest
         /// 用于测试生成随机进程名
         /// </summary>
         readonly string text1 = "osorl";
+
+        /// <summary>
+        /// 用于测试机房管理助手加密
+        /// </summary>
+        readonly string text2 = "f4113b24d6c047647085b5";
         #endregion
 
 
@@ -40,10 +45,16 @@ namespace T4CLLibraryUnitTest
         }
 
         [TestMethod]
-        public void JfglzsGetRandomProcessNameMethod()
+        public void GetJfglzsRandomProcessNameMethod()
         {
             var result = T4CLLibrary.Jfglzs.ProcessKiller.GetRandomProcessName(63);
             Assert.AreEqual(text1, result);
+        }
+        [TestMethod]
+        public void EncryptJfglzsPasswordMethodTest()
+        {
+            var encryptedPwd = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPassword("Tank");
+            Assert.AreEqual(text2, encryptedPwd);
         }
     }
 }

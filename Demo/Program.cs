@@ -22,6 +22,7 @@ namespace Demo
             Console.WriteLine("5. 机房管理助手进程名生成器");
             Console.WriteLine("6. 结束机房管理助手进程");
             Console.WriteLine("7. 设置机房管理助手密码");
+            Console.Write("请输入你的选择:");
         }
 
         static void MythwarePasswordCracker() 
@@ -33,7 +34,14 @@ namespace Demo
                 Console.WriteLine("请输入要加密的密码:");
                 var password = Console.ReadLine();
                 var result = T4CLLibrary.Mythware.PasswordCracker.EncryptPassword(password);
-                Console.WriteLine($"加密后的密码为: {string.Join(",", result)}");
+                Console.WriteLine($"加密后的密码为: {string.Join(",", Array.ConvertAll(result, b => b.ToString("X2")))}");
+                Console.Write("是否更改注册表内存储的值？(Y/N): ");
+                var choice = Console.ReadLine();
+                if (choice == "Y")
+                {
+                    T4CLLibrary.Mythware.PasswordCracker.SetEncryptedPassword(result);
+                    Console.WriteLine("已更改注册表内存储的值");
+                }
             }
             else if (ed == "D")
             {
@@ -45,6 +53,22 @@ namespace Demo
             {
                 Console.WriteLine("输入错误");
             }
+        }
+
+        static void JfglzsPasswordCracker()
+        {
+            Console.WriteLine("请输入要设置的密码:");
+            var password = Console.ReadLine();
+            var result = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPassword(password);
+            Console.WriteLine($"加密后的密码为: {result}");
+            Console.Write("是否更改注册表内存储的值？(Y/N): ");
+            var choice = Console.ReadLine();
+            if (choice == "Y")
+            {
+                T4CLLibrary.Jfglzs.PasswordCracker.SetEncryptedPassword(result);
+                Console.WriteLine("已更改注册表内存储的值");
+            }
+
         }
 
         static void Main(string[] args)
@@ -78,11 +102,13 @@ namespace Demo
                         T4CLLibrary.Jfglzs.ProcessKiller.KillAllProcesses();
                         Console.WriteLine("已结束机房管理助手进程");
                         break;
+                    case "7":
+                        JfglzsPasswordCracker();
+                        break;
                     default:
                         Console.WriteLine("未实现/不存在");
                         break;
                 }
-                Console.ReadKey();
             }
             catch (Exception ex)
             {
@@ -90,6 +116,8 @@ namespace Demo
                 Console.WriteLine($"栈跟踪: {ex.StackTrace}");
                 Console.ReadKey();
             }
+            Console.WriteLine("按任意键退出");
+            Console.ReadKey();
         }
     }
 }
