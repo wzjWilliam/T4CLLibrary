@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -32,11 +33,15 @@ namespace T4CLLibrary
         /// <param name="processName">进程名</param>
         public static void SuspendProcessByName(string processName)
         {
-            Process.GetProcessesByName(processName).ToList().ForEach(p =>
+            var processes = Process.GetProcessesByName(processName);
+            foreach (var process in processes)
             {
-                IntPtr processHandle = p.Handle;
-                NtSuspendProcess(processHandle);
-            });
+                IntPtr processHandle = process.Handle;
+                if (!NtSuspendProcess(processHandle))
+                {
+                    throw new Win32Exception(Marshal.GetLastWin32Error(), "挂起进程失败");
+                }
+            }
         }
 
         /// <summary>
@@ -45,11 +50,15 @@ namespace T4CLLibrary
         /// <param name="processName">进程名</param>
         public static void ResumeProcessByName(string processName)
         {
-            Process.GetProcessesByName(processName).ToList().ForEach(p =>
+            var processes = Process.GetProcessesByName(processName);
+            foreach (var process in processes)
             {
-                IntPtr processHandle = p.Handle;
-                NtResumeProcess(processHandle);
-            });
+                IntPtr processHandle = process.Handle;
+                if (!NtResumeProcess(processHandle))
+                {
+                    throw new Win32Exception(Marshal.GetLastWin32Error(), "恢复进程失败");
+                }
+            }
         }
     }
 }
