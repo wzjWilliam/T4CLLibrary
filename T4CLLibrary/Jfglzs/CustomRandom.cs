@@ -40,11 +40,16 @@ namespace T4CLLibrary.Jfglzs
                 }
                 num = (int)((long)num * 1140671485L + 12820163 & 0xFFFFFF);
             }
+            m_rndSeed = num;
             return num / 16777216.0f;
+        }
 
-            //m_rndSeed = num;
-            //这里不更改m_rndSeed的值，是为了每次获得的随机数都是一样的
-            //为什么要这样做呢？因为在机房管理助手中，每次获得的随机数都是一样的
+        /// <summary>
+        /// 重置随机数种子
+        /// </summary>
+        public static void Reset()
+        {
+            m_rndSeed = 327680;
         }
     }
 }

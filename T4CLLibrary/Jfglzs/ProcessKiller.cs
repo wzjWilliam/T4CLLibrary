@@ -33,6 +33,7 @@ namespace T4CLLibrary.Jfglzs
                 num8 /= 10L;
                 num9++;
             }
+            CustomRandom.Reset();
             return withExtensionName ? text + ".exe" : text;
         }
 

@@ -22,6 +22,7 @@ namespace Demo
             Console.WriteLine("5. 机房管理助手进程名生成器");
             Console.WriteLine("6. 结束机房管理助手进程");
             Console.WriteLine("7. 设置机房管理助手密码");
+            Console.WriteLine("8. 获取机房管理助手临时密码");
             Console.Write("请输入你的选择:");
         }
 
@@ -55,11 +56,19 @@ namespace Demo
             }
         }
 
-        static void JfglzsPasswordCracker()
+        static void JfglzsPasswordCracker(bool useNewVer)
         {
             Console.WriteLine("请输入要设置的密码:");
             var password = Console.ReadLine();
-            var result = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPassword(password);
+            string result;
+            if (useNewVer)
+            {
+                result = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPasswordNew(password);
+            }
+            else
+            {
+                result = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPassword(password);
+            }
             Console.WriteLine($"加密后的密码为: {result}");
             Console.Write("是否更改注册表内存储的值？(Y/N): ");
             var choice = Console.ReadLine();
@@ -103,7 +112,13 @@ namespace Demo
                         Console.WriteLine("已结束机房管理助手进程");
                         break;
                     case "7":
-                        JfglzsPasswordCracker();
+                        Console.WriteLine("是否使用新版本的加密方式？(Y/N): ");
+                        var useNewVer = Console.ReadLine() == "Y";
+                        JfglzsPasswordCracker(useNewVer);
+                        break;
+                    case "8":
+                        var tempPassword = T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword();
+                        Console.WriteLine($"生成的临时密码为: {tempPassword}");
                         break;
                     default:
                         Console.WriteLine("未实现/不存在");

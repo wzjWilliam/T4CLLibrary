@@ -47,14 +47,22 @@ namespace T4CLLibraryUnitTest
         [TestMethod]
         public void GetJfglzsRandomProcessNameMethod()
         {
-            var result = T4CLLibrary.Jfglzs.ProcessKiller.GetRandomProcessName(63);
-            Assert.AreEqual(text1, result);
+            var result1 = T4CLLibrary.Jfglzs.ProcessKiller.GetRandomProcessName(63);
+            var result2 = T4CLLibrary.Jfglzs.ProcessKiller.GetRandomProcessName(63);
+            var flag = result1 == result2 && result1 == text1;
+            Assert.IsTrue(flag);
         }
         [TestMethod]
         public void EncryptJfglzsPasswordMethodTest()
         {
             var encryptedPwd = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPassword("Tank");
             Assert.AreEqual(text2, encryptedPwd);
+        }
+        [TestMethod]
+        public void EncryptJfglzsPasswordNewMethodTest()
+        {
+            var result = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPasswordNew("114514");
+            Assert.AreEqual("YjP-b_P?-K", result);
         }
     }
 }
