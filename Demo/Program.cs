@@ -112,7 +112,7 @@ namespace Demo
                         Console.WriteLine("已结束机房管理助手进程");
                         break;
                     case "7":
-                        Console.WriteLine("是否使用新版本的加密方式？(Y/N): ");
+                        Console.WriteLine("是否使用新版本(9.99及以后)的加密方式？(Y/N): ");
                         var useNewVer = Console.ReadLine() == "Y";
                         JfglzsPasswordCracker(useNewVer);
                         break;

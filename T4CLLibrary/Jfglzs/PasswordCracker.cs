@@ -106,7 +106,7 @@ namespace T4CLLibrary.Jfglzs
         }
         #endregion
 
-        #region 9.99版以后
+        #region 9.99版及以后
 
         public static string InstantiateComposer(string input)
         {
@@ -163,7 +163,7 @@ namespace T4CLLibrary.Jfglzs
         }
 
         /// <summary>
-        /// 加密机房管理助手密码（9.99版以后）
+        /// 加密机房管理助手密码（9.99版及以后）
         /// </summary>
         /// <param name="encryptedPassword"></param>
         /// <returns></returns>
