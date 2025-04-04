@@ -64,6 +64,7 @@
     <Compile Include="Jfglzs\ProcessKiller.cs" />
     <Compile Include="Mythware\PasswordCracker.cs" />
     <Compile Include="Mythware\ProcessManager.cs" />
+    <Compile Include="Mythware\UdpAttack.cs" />
     <Compile Include="ProcessHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

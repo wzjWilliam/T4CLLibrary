@@ -108,14 +108,13 @@ namespace T4CLLibrary.Jfglzs
 
         #region 9.99版及以后
 
-        public static string InstantiateComposer(string input)
+        private static string AsciiSubTen(string input)
         {
             try
             {
                 StringBuilder result = new StringBuilder(input.Length);
                 foreach (char c in input)
                 {
-                    // 简单解密：每个字符ASCII码减10（与LogoutComposer对应）
                     result.Append((char)(c - 10));
                 }
                 return result.ToString();
@@ -126,12 +125,44 @@ namespace T4CLLibrary.Jfglzs
             }
         }
 
-        public static string AddComposer(string input)
+        private static bool IsAsciiPrintableChar(char c)
         {
-            
-            // 使用固定的密钥和初始化向量（原始代码从Windows目录获取但被硬编码覆盖）
-            string key = "C:\\WINDO";   // 取前8个字符
-            string iv = ":\\WINDOW";    // 从第2个字符开始取8个字符
+            return c >= 0x20 && c <= 0x7E; // 可打印字符范围
+        }
+
+        private static bool IsAsciiPrintableString(string str)
+        {
+            foreach (char c in str)
+            {
+                if (!IsAsciiPrintableChar(c))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private static string AsciiAddTen(string input)
+        {
+            try
+            {
+                StringBuilder result = new StringBuilder(input.Length);
+                foreach (char c in input)
+                {
+                    result.Append((char)(c + 10));
+                }
+                return result.ToString();
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+        private static string DESEncrypt(string input)
+        {
+            string key = "C:\\WINDO";
+            string iv = ":\\WINDOW";
 
             // 使用DES加密
             using (DESCryptoServiceProvider des = new DESCryptoServiceProvider())
@@ -147,14 +178,43 @@ namespace T4CLLibrary.Jfglzs
                         sw.Write(input);
                     }
 
-                    // 转换为Base64字符串并进一步处理
                     string encryptedBase64 = Convert.ToBase64String(ms.ToArray());
-                    return InstantiateComposer(encryptedBase64);
+                    return encryptedBase64;
                 }
             }  
         }
 
-        public static string ProcessString(string input)
+        private static string DESDecrypt(string inputBase64Str)
+        {
+            byte[] decodedInput;
+            try
+            {
+                decodedInput = Convert.FromBase64String(inputBase64Str);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            // 使用固定的密钥和初始化向量（原始代码从Windows目录获取但被硬编码覆盖）
+            string key = "C:\\WINDO";   // 取前8个字符
+            string iv = ":\\WINDOW";    // 从第2个字符开始取8个字符
+            // 使用DES解密
+            using (DESCryptoServiceProvider des = new DESCryptoServiceProvider())
+            {
+                des.Key = Encoding.UTF8.GetBytes(key);
+                des.IV = Encoding.UTF8.GetBytes(iv);
+                using (MemoryStream ms = new MemoryStream(decodedInput))
+                using (CryptoStream cs = new CryptoStream(ms, des.CreateDecryptor(), CryptoStreamMode.Read))
+                using (StreamReader sr = new StreamReader(cs))
+                {
+                   
+                    var result = sr.ReadToEnd();
+                    return result;
+                }
+            }
+        }
+
+        private static string ProcessString(string input)
         {
             if (input.Length < 3)
                 return "c";
@@ -169,9 +229,46 @@ namespace T4CLLibrary.Jfglzs
         /// <returns></returns>
         public static string EncryptPasswordNew(string encryptedPassword)
         {
-            string str1 = AddComposer(encryptedPassword);
-            string str2 = ProcessString(str1);
-            return str2;
+            string str1 = DESEncrypt(encryptedPassword);
+            string str2 = AsciiSubTen(str1);
+            string str3 = ProcessString(str2);
+            return str3;
+        }
+
+        /// <summary>
+        /// 用暴力方式解密机房管理助手密码（9.99版及以后）。
+        /// 由于加密方式的原因，解密后的密码可能会有多个结果,
+        /// 大约需要30秒钟。
+        /// </summary>
+        /// <param name="encryptedPassword">密文</param>
+        /// <returns>密码明文</returns>
+        public static string[] DecryptPassword(string encryptedPassword)
+        {
+            List<string> decryptedPasswords = new List<string>();
+            string str1 = encryptedPassword;
+            for (int left = 0x30; left <= 0x7A; left++)
+            {
+                for (int right = 0x30; right <= 0x7A; right++)
+                {
+                    try
+                    {
+                        string str2 = (char)left + str1 + (char)right;
+                        string str3 = AsciiAddTen(str2);
+                        string str4 = DESDecrypt(str3);
+                        if (!(str4 is null) && IsAsciiPrintableString(str4))
+                        {
+                            decryptedPasswords.Add(str4);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        // 捕获异常但不处理
+                        // 继续循环以尝试下一个字符组合
+                        //（奇妙的处理方式(doge)）
+                    }
+                }
+            }
+            return decryptedPasswords.ToArray();
         }
         #endregion
 
@@ -180,6 +277,22 @@ namespace T4CLLibrary.Jfglzs
             using (RegistryKey registryKey = Registry.CurrentUser.CreateSubKey("Software"))
             {
                 registryKey.SetValue("n", encryptedPassword);
+            }
+        }
+
+        public static string GetEncryptedPassword()
+        {
+            using (RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("Software"))
+            {
+                if (registryKey != null)
+                {
+                    string encryptedPassword = registryKey.GetValue("n") as string;
+                    return encryptedPassword;
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
     }

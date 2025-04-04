@@ -37,10 +37,7 @@ namespace T4CLLibrary
             foreach (var process in processes)
             {
                 IntPtr processHandle = process.Handle;
-                if (!NtSuspendProcess(processHandle))
-                {
-                    throw new Win32Exception(Marshal.GetLastWin32Error(), "挂起进程失败");
-                }
+                NtSuspendProcess(processHandle);
             }
         }
 
@@ -54,10 +51,7 @@ namespace T4CLLibrary
             foreach (var process in processes)
             {
                 IntPtr processHandle = process.Handle;
-                if (!NtResumeProcess(processHandle))
-                {
-                    throw new Win32Exception(Marshal.GetLastWin32Error(), "恢复进程失败");
-                }
+                NtResumeProcess(processHandle);
             }
         }
     }
