@@ -26,6 +26,8 @@ namespace T4CLLibraryUnitTest
         /// 用于测试机房管理助手加密
         /// </summary>
         readonly string text2 = "f4113b24d6c047647085b5";
+
+        readonly string tmpPwd = "82952880";
         #endregion
 
 
@@ -63,6 +65,13 @@ namespace T4CLLibraryUnitTest
         {
             var result = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPasswordNew("114514");
             Assert.AreEqual("YjP-b_P?-K", result);
+        }
+
+        [TestMethod]
+        public void GenerateJfglzsTemporaryPasswordMethodTest()
+        {
+            var result = T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword(4,4,2025);
+            Assert.AreEqual(tmpPwd, result);
         }
     }
 }

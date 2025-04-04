@@ -15,10 +15,14 @@
 - 结束机房管理助手以及极域所有进程；
 - 自动计算机房管理助手随机进程名；
 - 挂起以及恢复极域主进程（即StudentMain.exe）；
+- 获取极域密码，设置机房管理助手密码和获取机房管理助手9\.99版及以上的的密码(获取为暴力破解)
+- 获取机房管理助手临时密码
+- 极域UDP重放攻击
 - 更方便的结束、挂起或恢复进程的方法；
 
 ## 其他
 ### T4CL是什么？
 我自己随便搞的缩写，全称为Tools for Computer Lesson，即机房工具。这也是我以前某个项目的名称，功能与这个相似，但是是可执行文件（用WinForms写的UI）。
 ### 引用
-这个程序中加密和解密极域密码的程序并不是由我制作的，而是参（chao）考（xi）[这位大佬](https://github.com/MuliMuri)的[这个项目](https://github.com/MuliMuri/Mythware)制作的
+- 加密和解密极域密码: [这个项目](https://github.com/MuliMuri/Mythware)
+- 极域UDP重放攻击: [这个项目](https://github.com/ht0Ruial/Jiyu_udp_attack)

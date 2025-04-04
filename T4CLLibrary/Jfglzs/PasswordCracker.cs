@@ -15,14 +15,19 @@ namespace T4CLLibrary.Jfglzs
         /// 生成机房管理助手每日临时密码
         /// </summary>
         /// <returns></returns>
-        public static string GenerateTemporaryPassword()
+        public static string GenerateTemporaryPassword(int month,int day, int year)
         {
             DateTime currentDate = DateTime.Now;
-            long monthComponent = currentDate.Month * 13;
-            long dayComponent = currentDate.Day * 57;
-            long yearComponent = currentDate.Year * 91;
+            long monthComponent = month * 13;
+            long dayComponent = day * 57;
+            long yearComponent = year * 91;
             long combinedValue = monthComponent + dayComponent + yearComponent;
             return "8"+(combinedValue * 16).ToString();
+        }
+
+        public static string GenerateTemporaryPassword()
+        {
+            return GenerateTemporaryPassword(DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Year);
         }
 
 
@@ -242,7 +247,7 @@ namespace T4CLLibrary.Jfglzs
         /// </summary>
         /// <param name="encryptedPassword">密文</param>
         /// <returns>密码明文</returns>
-        public static string[] DecryptPassword(string encryptedPassword)
+        public static string[] DecryptPassword(string encryptedPassword, bool getAllProbablyPassword = false)
         {
             List<string> decryptedPasswords = new List<string>();
             string str1 = encryptedPassword;
@@ -257,7 +262,15 @@ namespace T4CLLibrary.Jfglzs
                         string str4 = DESDecrypt(str3);
                         if (!(str4 is null) && IsAsciiPrintableString(str4))
                         {
-                            decryptedPasswords.Add(str4);
+                            if (getAllProbablyPassword)
+                            {
+                                decryptedPasswords.Add(str4);
+                            }
+                            else
+                            {
+                                // 只返回第一个找到的密码
+                                return new string[] { str4 };
+                            }
                         }
                     }
                     catch (Exception)
