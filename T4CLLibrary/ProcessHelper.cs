@@ -13,9 +13,9 @@ namespace T4CLLibrary
     {
         #region Win32 API
         [DllImport("ntdll.dll", SetLastError = true)]
-        static extern bool NtSuspendProcess(IntPtr processHandle);
+        static extern int NtSuspendProcess(IntPtr processHandle);
         [DllImport("ntdll.dll", SetLastError = true)]
-        static extern bool NtResumeProcess(IntPtr processHandle);
+        static extern int NtResumeProcess(IntPtr processHandle);
         #endregion
 
         /// <summary>
@@ -37,7 +37,10 @@ namespace T4CLLibrary
             foreach (var process in processes)
             {
                 IntPtr processHandle = process.Handle;
-                NtSuspendProcess(processHandle);
+                if(!(NtSuspendProcess(processHandle) == 0))
+                {
+                    throw new Win32Exception(Marshal.GetLastWin32Error());
+                }
             }
         }
 
@@ -51,7 +54,10 @@ namespace T4CLLibrary
             foreach (var process in processes)
             {
                 IntPtr processHandle = process.Handle;
-                NtResumeProcess(processHandle);
+                if (!(NtResumeProcess(processHandle) == 0))
+                {
+                    throw new Win32Exception(Marshal.GetLastWin32Error());
+                }
             }
         }
     }
