@@ -8,7 +8,7 @@ namespace T4CLLibrary.Mythware
 {
     public static class ProcessManager
     {
-        static readonly string[] unchangedProcessNames = { "studentmain", "GATESRV", };
+        static readonly string[] unchangedProcessNames = { "studentmain", "GATESRV", "masterhelper"};
 
         /// <summary>
         /// 杀死极域所有进程
