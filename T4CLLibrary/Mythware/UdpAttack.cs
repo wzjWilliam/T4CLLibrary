@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
@@ -274,6 +276,22 @@ namespace T4CLLibrary.Mythware
                 List<byte> sendList = CreateShutdownSendList();
                 Send(sendList, ip, port);
             }
+        }
+
+        public static int[] GetMythwareListeningPorts()
+        {
+            var udpPorts = UdpPortFinder.GetUdpListeningPorts();
+            foreach (var portInfo in udpPorts)
+            {
+                portInfo.ResolveProcessName();
+            }
+            var mythwarePorts = udpPorts.Where(p => p.ProcessName.Contains("StudentMain"));
+            List<int> ports = new List<int>();
+            foreach (var portInfo in mythwarePorts)
+            {
+                ports.Add(portInfo.LocalPort);
+            }
+            return ports.ToArray();
         }
         #endregion
     }

@@ -281,7 +281,7 @@ namespace T4CLLibrary.Jfglzs
                     {
                         // 捕获异常但不处理
                         // 继续循环以尝试下一个字符组合
-                        //（奇妙的处理方式(doge)）
+                        continue;
                     }
                 }
             }

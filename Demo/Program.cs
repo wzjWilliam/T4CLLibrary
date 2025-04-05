@@ -141,10 +141,16 @@ namespace Demo
             {
                 Console.Clear();
                 Console.WriteLine("极域UDP重放攻击");
-                Console.Write("攻击方式?(c: 发送命令, m: 发送信息, s: 关机, r: 重启, q: 退出程序): ");
+                Console.Write("要做什么?(c: 发送命令, m: 发送信息, s: 关机, r: 重启, g: 获取监听端口, q: 退出程序): ");
                 var attackType = Console.ReadLine();
                 if (attackType == "q")
                     break;
+                if (attackType == "g")
+                {
+                    var result = T4CLLibrary.Mythware.UdpAttack.GetMythwareListeningPorts();
+                    Console.WriteLine($"监听端口:{string.Join(",",result)}");
+                    return;
+                }
                 Console.Write("请输入要攻击的IP地址:");
                 var ip = Console.ReadLine();
                 Console.Write("请输入要攻击的端口号:");
