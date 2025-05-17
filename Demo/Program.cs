@@ -82,7 +82,7 @@ namespace Demo
                 string result;
                 if (useNewVer)
                 {
-                    result = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPasswordNew(password);
+                    result = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPassword0999(password);
                 }
                 else
                 {

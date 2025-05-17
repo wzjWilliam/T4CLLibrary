@@ -38,6 +38,29 @@ namespace T4CLLibrary.Jfglzs
         }
 
         /// <summary>
+        /// 获取随机进程名, 10.1+
+        /// </summary>
+        /// <param name="num3">当天的月份乘日期</param>
+        /// <param name="withExtensionName">是否返回扩展名</param>
+        /// <returns></returns>
+        public static string GetRandomProcessName1002(int num3, bool withExtensionName = false)
+        {
+            CustomRandom.Randomize(num3);
+            long num8 = (long)Math.Round(CustomRandom.Rnd() * 100000.0 * 3.0 + 1.0);
+            string text = "";
+            var num9 = 1;
+            do
+            {
+                long digit = num8 % 10L + 109L;
+                text = ((char)digit).ToString() + text;
+                num8 /= 10L;
+                num9++;
+            }
+            while (num9 <= 5);
+            return withExtensionName ? text + ".exe" : text;
+        }
+
+        /// <summary>
         /// 杀死机房管理助手所有进程
         /// </summary>
         public static void KillAllProcesses()
@@ -46,7 +69,10 @@ namespace T4CLLibrary.Jfglzs
             {
                 ProcessHelper.KillProcessByName(processName);
             }
+
+            //暂时先使用结束两个随机进程名
             ProcessHelper.KillProcessByName(GetRandomProcessName(DateTime.Now.Month * DateTime.Now.Day));
+            ProcessHelper.KillProcessByName(GetRandomProcessName1002(DateTime.Now.Month * DateTime.Now.Day));
         }
     }
 }

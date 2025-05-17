@@ -9,6 +9,26 @@ using System.Threading.Tasks;
 
 namespace T4CLLibrary.Jfglzs
 {
+    public enum PasswordType
+    {
+        /// <summary>
+        /// 9.99版以前
+        /// </summary>
+        A,
+        /// <summary>
+        /// 9.99版
+        /// </summary>
+        B,
+        /// <summary>
+        /// 10.1版
+        /// </summary>
+        C,
+        /// <summary>
+        /// 10.2版及以后
+        /// </summary>
+        D,
+    }
+
     public static class PasswordCracker
     {
         /// <summary>
@@ -17,7 +37,7 @@ namespace T4CLLibrary.Jfglzs
         /// <returns></returns>
         public static string GenerateTemporaryPassword(int month,int day, int year)
         {
-            DateTime currentDate = DateTime.Now;
+            //DateTime currentDate = DateTime.Now;
             long monthComponent = month * 13;
             long dayComponent = day * 57;
             long yearComponent = year * 91;
@@ -30,27 +50,69 @@ namespace T4CLLibrary.Jfglzs
             return GenerateTemporaryPassword(DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Year);
         }
 
+        /// <summary>
+        /// 生成机房管理助手每日临时密码(10.2版及以后)
+        /// 注意：机房管理助手获取日期的方法是给百度发送请求获取的，可能是为了防止用户修改系统时间。
+        /// </summary>
+        /// <param name="month">月</param>
+        /// <param name="day">日</param>
+        /// <param name="year">年</param>
+        /// <returns>密码</returns>
+        public static string GenerateTemporaryPassword1001(int month, int day, int year)
+        {
+            long monthComponent = month * 13;
+            long dayComponent = day * 57;
+            long yearComponent = year * 91;
+            long combinedValue = monthComponent + dayComponent + yearComponent;
+            return "8" + (combinedValue * 16 + 11).ToString();
+        }
 
-        #region 9.99版以前
+        /// <summary>
+        /// 生成机房管理助手每日临时密码(10.2版及以后)
+        /// </summary>
+        /// <returns>密码</returns>
+        public static string GenerateTemporaryPassword1001()
+        {
+            return GenerateTemporaryPassword1001(DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Year);
+        }
+
+
+        
         /// <summary>
         /// 加密密码第一步
         /// </summary>
         /// <param name="inputString">密码</param>
         /// <returns>第一步加密后的字符串</returns>
-        private static string DESEncryptAndBase64Encode(string inputString)
+        private static string DESEncryptAndBase64Encode(string inputString,PasswordType passwordType = PasswordType.A)
         {
-           
-            byte[] key = Encoding.UTF8.GetBytes("C:\\WINDOWS".Substring(0, 8));
-            byte[] iv = Encoding.UTF8.GetBytes("C:\\WINDOWS".Substring(1, 8));
+            string str1 = "C:\\WINDOWS";
+            string str2 = "zm2025jfglzs";
+            byte[] key;
+            byte[] iv;
+            if (passwordType == PasswordType.B || passwordType == PasswordType.A||passwordType == PasswordType.C)
+            {
+                key = Encoding.UTF8.GetBytes(str1.Substring(0, 8));
+                iv = Encoding.UTF8.GetBytes(str1.Substring(1, 8));
+            }
+            else if (passwordType == PasswordType.D)
+            {
+                key = Encoding.UTF8.GetBytes(str2.Substring(0,8));
+                iv = Encoding.UTF8.GetBytes(str2.Substring(1,8));
+            }
+            else
+            {
+                throw new ArgumentException("Invalid password type");
+            }
+
             using (var desCryptoServiceProvider = new DESCryptoServiceProvider())
             {
                 desCryptoServiceProvider.Key = key;
                 desCryptoServiceProvider.IV = iv;
-                using (var memoryStream = new System.IO.MemoryStream())
+                using (var memoryStream = new MemoryStream())
                 {
-                    using (var cryptoStream = new System.Security.Cryptography.CryptoStream(memoryStream, desCryptoServiceProvider.CreateEncryptor(), System.Security.Cryptography.CryptoStreamMode.Write))
+                    using (var cryptoStream = new CryptoStream(memoryStream, desCryptoServiceProvider.CreateEncryptor(), System.Security.Cryptography.CryptoStreamMode.Write))
                     {
-                        using (var streamWriter = new System.IO.StreamWriter(cryptoStream))
+                        using (var streamWriter = new StreamWriter(cryptoStream))
                         {
                             streamWriter.Write(inputString);
                             streamWriter.Flush();
@@ -63,7 +125,7 @@ namespace T4CLLibrary.Jfglzs
                 }
             }
         }
-
+        #region 9.99版以前
         private static string SecondStepOfEncryptingPassword(string inputString)
         {
             int stringLength = inputString.Length;
@@ -111,7 +173,7 @@ namespace T4CLLibrary.Jfglzs
         }
         #endregion
 
-        #region 9.99版及以后
+        #region 9.99版及以后, 10.1版以前
 
         private static string AsciiSubTen(string input)
         {
@@ -232,7 +294,7 @@ namespace T4CLLibrary.Jfglzs
         /// </summary>
         /// <param name="encryptedPassword"></param>
         /// <returns></returns>
-        public static string EncryptPasswordNew(string encryptedPassword)
+        public static string EncryptPassword0999(string encryptedPassword)
         {
             string str1 = DESEncrypt(encryptedPassword);
             string str2 = AsciiSubTen(str1);
@@ -289,12 +351,45 @@ namespace T4CLLibrary.Jfglzs
         }
         #endregion
 
-        public static void SetEncryptedPassword(string encryptedPassword) 
+        #region 10.1版
+        public static string EncryptPassword1001(string password)
+        {
+            var str1 = EncryptPassword(password);
+            return str1.Substring(0, 20);
+        }
+        #endregion
+
+        #region 10.2版及以后
+        public static string EncryptPassword1002(string password)
+        {
+            var str1 = DESEncryptAndBase64Encode(password, PasswordType.D);
+            var str2 = ThirdStepOfEncryptingPassword(str1);
+            var str3 = str2.Substring(0,20);
+            return str3;
+        }
+        #endregion
+
+
+
+        public static void SetEncryptedPassword(string encryptedPassword,PasswordType passwordType = PasswordType.A) 
         { 
-            using (RegistryKey registryKey = Registry.CurrentUser.CreateSubKey("Software"))
+            
+
+            if(passwordType == PasswordType.A || passwordType == PasswordType.B || passwordType == PasswordType.C)
             {
-                registryKey.SetValue("n", encryptedPassword);
+                using (RegistryKey registryKey = Registry.CurrentUser.CreateSubKey("Software"))
+                {
+                    registryKey.SetValue("n", encryptedPassword);
+                }
             }
+            else if (passwordType == PasswordType.D)
+            {
+                using (RegistryKey registryKey = Registry.LocalMachine.CreateSubKey("Software"))
+                {
+                    registryKey.SetValue("zz", encryptedPassword);
+                }
+            }
+
         }
 
         public static string GetEncryptedPassword()
