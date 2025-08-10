@@ -146,7 +146,7 @@ namespace T4CLLibrary.RedSpider
         /// </summary>
         /// <param name="ip">IP地址</param>
         /// <param name="port">端口</param>
-        /// <param name="force">是否强制</param>
+        /// <param name="force">是否强置重启</param>
         public static void SendRebootPacket(string ip, int port = 1689, bool force = false)
         {
             byte[] payload = (byte[])rebootPayload.Clone();
