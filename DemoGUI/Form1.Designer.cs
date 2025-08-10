@@ -32,6 +32,9 @@
             this.buttonKillJY = new System.Windows.Forms.Button();
             this.buttonTmpPwd = new System.Windows.Forms.Button();
             this.groupBoxProc = new System.Windows.Forms.GroupBox();
+            this.buttonKillRS = new System.Windows.Forms.Button();
+            this.buttonSuspendRS = new System.Windows.Forms.Button();
+            this.buttonResumeRS = new System.Windows.Forms.Button();
             this.buttonResume = new System.Windows.Forms.Button();
             this.buttonSuspend = new System.Windows.Forms.Button();
             this.textBoxProcName = new System.Windows.Forms.TextBox();
@@ -47,36 +50,56 @@
             this.buttonJFPwd = new System.Windows.Forms.Button();
             this.groupBoxUdp = new System.Windows.Forms.GroupBox();
             this.buttonGetPort = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBoxPort = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxIP = new System.Windows.Forms.TextBox();
             this.buttonSendReboot = new System.Windows.Forms.Button();
             this.buttonSendShutdown = new System.Windows.Forms.Button();
             this.buttonSendCmd = new System.Windows.Forms.Button();
             this.textBoxSendText = new System.Windows.Forms.TextBox();
             this.buttonSendMsg = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxPort = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxIP = new System.Windows.Forms.TextBox();
             this.buttonDbg = new System.Windows.Forms.Button();
             this.groupBoxOther = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.radioBtn1001 = new System.Windows.Forms.RadioButton();
             this.radioButtonG1002 = new System.Windows.Forms.RadioButton();
             this.radioBtn0999 = new System.Windows.Forms.RadioButton();
             this.radioBtnL0999 = new System.Windows.Forms.RadioButton();
             this.buttonDefullScreen = new System.Windows.Forms.Button();
             this.buttonEnableNet = new System.Windows.Forms.Button();
-            this.radioBtn1001 = new System.Windows.Forms.RadioButton();
-            this.label3 = new System.Windows.Forms.Label();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPageUniversal = new System.Windows.Forms.TabPage();
+            this.tabPageSpecial = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBoxRSArgs = new System.Windows.Forms.TextBox();
+            this.textBoxRSFilePath = new System.Windows.Forms.TextBox();
+            this.buttonRSCmd = new System.Windows.Forms.Button();
+            this.buttonRSUnblackScrn = new System.Windows.Forms.Button();
+            this.buttonRSBlackScrn = new System.Windows.Forms.Button();
+            this.buttonRSShutdown = new System.Windows.Forms.Button();
+            this.buttonRSAllowChat = new System.Windows.Forms.Button();
+            this.buttonRSDisallowChat = new System.Windows.Forms.Button();
             this.groupBoxProc.SuspendLayout();
             this.groupBoxPwd.SuspendLayout();
             this.groupBoxUdp.SuspendLayout();
             this.groupBoxOther.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPageUniversal.SuspendLayout();
+            this.tabPageSpecial.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonKillJF
             // 
             this.buttonKillJF.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonKillJF.Location = new System.Drawing.Point(211, 27);
+            this.buttonKillJF.Location = new System.Drawing.Point(6, 460);
             this.buttonKillJF.Name = "buttonKillJF";
-            this.buttonKillJF.Size = new System.Drawing.Size(199, 83);
+            this.buttonKillJF.Size = new System.Drawing.Size(404, 83);
             this.buttonKillJF.TabIndex = 0;
             this.buttonKillJF.Text = "结束机房管理助手";
             this.buttonKillJF.UseVisualStyleBackColor = true;
@@ -87,7 +110,7 @@
             this.buttonKillJY.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.buttonKillJY.Location = new System.Drawing.Point(6, 27);
             this.buttonKillJY.Name = "buttonKillJY";
-            this.buttonKillJY.Size = new System.Drawing.Size(199, 83);
+            this.buttonKillJY.Size = new System.Drawing.Size(404, 83);
             this.buttonKillJY.TabIndex = 1;
             this.buttonKillJY.Text = "结束极域";
             this.buttonKillJY.UseVisualStyleBackColor = true;
@@ -98,7 +121,7 @@
             this.buttonTmpPwd.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.buttonTmpPwd.Location = new System.Drawing.Point(6, 27);
             this.buttonTmpPwd.Name = "buttonTmpPwd";
-            this.buttonTmpPwd.Size = new System.Drawing.Size(404, 83);
+            this.buttonTmpPwd.Size = new System.Drawing.Size(463, 83);
             this.buttonTmpPwd.TabIndex = 4;
             this.buttonTmpPwd.Text = "获取机房管理助手临时密码";
             this.buttonTmpPwd.UseVisualStyleBackColor = true;
@@ -106,6 +129,9 @@
             // 
             // groupBoxProc
             // 
+            this.groupBoxProc.Controls.Add(this.buttonKillRS);
+            this.groupBoxProc.Controls.Add(this.buttonSuspendRS);
+            this.groupBoxProc.Controls.Add(this.buttonResumeRS);
             this.groupBoxProc.Controls.Add(this.buttonResume);
             this.groupBoxProc.Controls.Add(this.buttonSuspend);
             this.groupBoxProc.Controls.Add(this.textBoxProcName);
@@ -115,16 +141,49 @@
             this.groupBoxProc.Controls.Add(this.buttonSuspendJY);
             this.groupBoxProc.Controls.Add(this.buttonKillJY);
             this.groupBoxProc.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBoxProc.Location = new System.Drawing.Point(12, 12);
+            this.groupBoxProc.Location = new System.Drawing.Point(6, 9);
             this.groupBoxProc.Name = "groupBoxProc";
-            this.groupBoxProc.Size = new System.Drawing.Size(420, 444);
+            this.groupBoxProc.Size = new System.Drawing.Size(420, 778);
             this.groupBoxProc.TabIndex = 6;
             this.groupBoxProc.TabStop = false;
             this.groupBoxProc.Text = "进程相关";
             // 
+            // buttonKillRS
+            // 
+            this.buttonKillRS.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonKillRS.Location = new System.Drawing.Point(6, 265);
+            this.buttonKillRS.Name = "buttonKillRS";
+            this.buttonKillRS.Size = new System.Drawing.Size(404, 83);
+            this.buttonKillRS.TabIndex = 17;
+            this.buttonKillRS.Text = "结束红蜘蛛";
+            this.buttonKillRS.UseVisualStyleBackColor = true;
+            this.buttonKillRS.Click += new System.EventHandler(this.buttonKillRS_Click);
+            // 
+            // buttonSuspendRS
+            // 
+            this.buttonSuspendRS.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonSuspendRS.Location = new System.Drawing.Point(211, 355);
+            this.buttonSuspendRS.Name = "buttonSuspendRS";
+            this.buttonSuspendRS.Size = new System.Drawing.Size(199, 83);
+            this.buttonSuspendRS.TabIndex = 16;
+            this.buttonSuspendRS.Text = "挂起红蜘蛛";
+            this.buttonSuspendRS.UseVisualStyleBackColor = true;
+            this.buttonSuspendRS.Click += new System.EventHandler(this.buttonSuspendRS_Click);
+            // 
+            // buttonResumeRS
+            // 
+            this.buttonResumeRS.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonResumeRS.Location = new System.Drawing.Point(6, 354);
+            this.buttonResumeRS.Name = "buttonResumeRS";
+            this.buttonResumeRS.Size = new System.Drawing.Size(199, 83);
+            this.buttonResumeRS.TabIndex = 15;
+            this.buttonResumeRS.Text = "恢复红蜘蛛";
+            this.buttonResumeRS.UseVisualStyleBackColor = true;
+            this.buttonResumeRS.Click += new System.EventHandler(this.buttonResumeRS_Click);
+            // 
             // buttonResume
             // 
-            this.buttonResume.Location = new System.Drawing.Point(211, 284);
+            this.buttonResume.Location = new System.Drawing.Point(215, 636);
             this.buttonResume.Name = "buttonResume";
             this.buttonResume.Size = new System.Drawing.Size(199, 64);
             this.buttonResume.TabIndex = 14;
@@ -134,9 +193,9 @@
             // 
             // buttonSuspend
             // 
-            this.buttonSuspend.Location = new System.Drawing.Point(10, 284);
+            this.buttonSuspend.Location = new System.Drawing.Point(6, 636);
             this.buttonSuspend.Name = "buttonSuspend";
-            this.buttonSuspend.Size = new System.Drawing.Size(199, 64);
+            this.buttonSuspend.Size = new System.Drawing.Size(207, 64);
             this.buttonSuspend.TabIndex = 13;
             this.buttonSuspend.Text = "挂起自定义进程";
             this.buttonSuspend.UseVisualStyleBackColor = true;
@@ -145,16 +204,16 @@
             // textBoxProcName
             // 
             this.textBoxProcName.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBoxProcName.Location = new System.Drawing.Point(10, 229);
+            this.textBoxProcName.Location = new System.Drawing.Point(6, 581);
             this.textBoxProcName.Name = "textBoxProcName";
-            this.textBoxProcName.Size = new System.Drawing.Size(400, 49);
+            this.textBoxProcName.Size = new System.Drawing.Size(408, 49);
             this.textBoxProcName.TabIndex = 12;
             // 
             // buttonKill
             // 
-            this.buttonKill.Location = new System.Drawing.Point(10, 354);
+            this.buttonKill.Location = new System.Drawing.Point(6, 706);
             this.buttonKill.Name = "buttonKill";
-            this.buttonKill.Size = new System.Drawing.Size(400, 64);
+            this.buttonKill.Size = new System.Drawing.Size(408, 64);
             this.buttonKill.TabIndex = 11;
             this.buttonKill.Text = "结束自定义进程";
             this.buttonKill.UseVisualStyleBackColor = true;
@@ -192,9 +251,9 @@
             this.groupBoxPwd.Controls.Add(this.buttonJFPwd);
             this.groupBoxPwd.Controls.Add(this.buttonTmpPwd);
             this.groupBoxPwd.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBoxPwd.Location = new System.Drawing.Point(438, 12);
+            this.groupBoxPwd.Location = new System.Drawing.Point(469, 9);
             this.groupBoxPwd.Name = "groupBoxPwd";
-            this.groupBoxPwd.Size = new System.Drawing.Size(420, 444);
+            this.groupBoxPwd.Size = new System.Drawing.Size(479, 444);
             this.groupBoxPwd.TabIndex = 7;
             this.groupBoxPwd.TabStop = false;
             this.groupBoxPwd.Text = "密码相关";
@@ -213,9 +272,9 @@
             // buttonGetJYPwd
             // 
             this.buttonGetJYPwd.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonGetJYPwd.Location = new System.Drawing.Point(211, 116);
+            this.buttonGetJYPwd.Location = new System.Drawing.Point(245, 116);
             this.buttonGetJYPwd.Name = "buttonGetJYPwd";
-            this.buttonGetJYPwd.Size = new System.Drawing.Size(199, 83);
+            this.buttonGetJYPwd.Size = new System.Drawing.Size(224, 83);
             this.buttonGetJYPwd.TabIndex = 13;
             this.buttonGetJYPwd.Text = "获取极域密码";
             this.buttonGetJYPwd.UseVisualStyleBackColor = true;
@@ -226,7 +285,7 @@
             this.buttonGetJFPwd.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.buttonGetJFPwd.Location = new System.Drawing.Point(6, 116);
             this.buttonGetJFPwd.Name = "buttonGetJFPwd";
-            this.buttonGetJFPwd.Size = new System.Drawing.Size(199, 83);
+            this.buttonGetJFPwd.Size = new System.Drawing.Size(222, 83);
             this.buttonGetJFPwd.TabIndex = 12;
             this.buttonGetJFPwd.Text = "获取机房管理助手密码";
             this.buttonGetJFPwd.UseVisualStyleBackColor = true;
@@ -234,9 +293,9 @@
             // 
             // buttonJYPwd
             // 
-            this.buttonJYPwd.Location = new System.Drawing.Point(211, 284);
+            this.buttonJYPwd.Location = new System.Drawing.Point(245, 284);
             this.buttonJYPwd.Name = "buttonJYPwd";
-            this.buttonJYPwd.Size = new System.Drawing.Size(199, 64);
+            this.buttonJYPwd.Size = new System.Drawing.Size(224, 64);
             this.buttonJYPwd.TabIndex = 10;
             this.buttonJYPwd.Text = "设置极域密码";
             this.buttonJYPwd.UseVisualStyleBackColor = true;
@@ -247,14 +306,14 @@
             this.textBoxPwd.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.textBoxPwd.Location = new System.Drawing.Point(6, 229);
             this.textBoxPwd.Name = "textBoxPwd";
-            this.textBoxPwd.Size = new System.Drawing.Size(404, 49);
+            this.textBoxPwd.Size = new System.Drawing.Size(463, 49);
             this.textBoxPwd.TabIndex = 9;
             // 
             // buttonJFPwd
             // 
             this.buttonJFPwd.Location = new System.Drawing.Point(6, 284);
             this.buttonJFPwd.Name = "buttonJFPwd";
-            this.buttonJFPwd.Size = new System.Drawing.Size(199, 64);
+            this.buttonJFPwd.Size = new System.Drawing.Size(222, 64);
             this.buttonJFPwd.TabIndex = 8;
             this.buttonJFPwd.Text = "设置机房管理助手密码";
             this.buttonJFPwd.UseVisualStyleBackColor = true;
@@ -263,17 +322,13 @@
             // groupBoxUdp
             // 
             this.groupBoxUdp.Controls.Add(this.buttonGetPort);
-            this.groupBoxUdp.Controls.Add(this.label2);
-            this.groupBoxUdp.Controls.Add(this.textBoxPort);
-            this.groupBoxUdp.Controls.Add(this.label1);
-            this.groupBoxUdp.Controls.Add(this.textBoxIP);
             this.groupBoxUdp.Controls.Add(this.buttonSendReboot);
             this.groupBoxUdp.Controls.Add(this.buttonSendShutdown);
             this.groupBoxUdp.Controls.Add(this.buttonSendCmd);
             this.groupBoxUdp.Controls.Add(this.textBoxSendText);
             this.groupBoxUdp.Controls.Add(this.buttonSendMsg);
             this.groupBoxUdp.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBoxUdp.Location = new System.Drawing.Point(12, 462);
+            this.groupBoxUdp.Location = new System.Drawing.Point(6, 6);
             this.groupBoxUdp.Name = "groupBoxUdp";
             this.groupBoxUdp.Size = new System.Drawing.Size(846, 295);
             this.groupBoxUdp.TabIndex = 8;
@@ -289,42 +344,6 @@
             this.buttonGetPort.Text = "获取极域监听端口";
             this.buttonGetPort.UseVisualStyleBackColor = true;
             this.buttonGetPort.Click += new System.EventHandler(this.buttonGetPort_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(560, 80);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(70, 24);
-            this.label2.TabIndex = 23;
-            this.label2.Text = "端口:";
-            // 
-            // textBoxPort
-            // 
-            this.textBoxPort.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBoxPort.Location = new System.Drawing.Point(636, 77);
-            this.textBoxPort.Name = "textBoxPort";
-            this.textBoxPort.Size = new System.Drawing.Size(200, 35);
-            this.textBoxPort.TabIndex = 22;
-            this.textBoxPort.Text = "4705";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(560, 27);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 24);
-            this.label1.TabIndex = 21;
-            this.label1.Text = "IP:";
-            // 
-            // textBoxIP
-            // 
-            this.textBoxIP.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBoxIP.Location = new System.Drawing.Point(612, 24);
-            this.textBoxIP.Name = "textBoxIP";
-            this.textBoxIP.Size = new System.Drawing.Size(224, 35);
-            this.textBoxIP.TabIndex = 20;
-            this.textBoxIP.Text = "127.0.0.1";
             // 
             // buttonSendReboot
             // 
@@ -375,10 +394,46 @@
             this.buttonSendMsg.UseVisualStyleBackColor = true;
             this.buttonSendMsg.Click += new System.EventHandler(this.buttonSendMsg_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(24, 84);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(70, 24);
+            this.label2.TabIndex = 23;
+            this.label2.Text = "端口:";
+            // 
+            // textBoxPort
+            // 
+            this.textBoxPort.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBoxPort.Location = new System.Drawing.Point(100, 81);
+            this.textBoxPort.Name = "textBoxPort";
+            this.textBoxPort.Size = new System.Drawing.Size(200, 35);
+            this.textBoxPort.TabIndex = 22;
+            this.textBoxPort.Text = "4705";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(24, 31);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(46, 24);
+            this.label1.TabIndex = 21;
+            this.label1.Text = "IP:";
+            // 
+            // textBoxIP
+            // 
+            this.textBoxIP.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBoxIP.Location = new System.Drawing.Point(76, 28);
+            this.textBoxIP.Name = "textBoxIP";
+            this.textBoxIP.Size = new System.Drawing.Size(224, 35);
+            this.textBoxIP.TabIndex = 20;
+            this.textBoxIP.Text = "255.255.255.255";
+            // 
             // buttonDbg
             // 
             this.buttonDbg.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonDbg.Location = new System.Drawing.Point(0, 27);
+            this.buttonDbg.Location = new System.Drawing.Point(4, 27);
             this.buttonDbg.Name = "buttonDbg";
             this.buttonDbg.Size = new System.Drawing.Size(256, 83);
             this.buttonDbg.TabIndex = 25;
@@ -393,21 +448,40 @@
             this.groupBoxOther.Controls.Add(this.radioButtonG1002);
             this.groupBoxOther.Controls.Add(this.radioBtn0999);
             this.groupBoxOther.Controls.Add(this.radioBtnL0999);
-            this.groupBoxOther.Controls.Add(this.buttonDefullScreen);
-            this.groupBoxOther.Controls.Add(this.buttonEnableNet);
             this.groupBoxOther.Controls.Add(this.buttonDbg);
             this.groupBoxOther.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBoxOther.Location = new System.Drawing.Point(864, 12);
+            this.groupBoxOther.Location = new System.Drawing.Point(469, 539);
             this.groupBoxOther.Name = "groupBoxOther";
-            this.groupBoxOther.Size = new System.Drawing.Size(268, 745);
+            this.groupBoxOther.Size = new System.Drawing.Size(479, 240);
             this.groupBoxOther.TabIndex = 26;
             this.groupBoxOther.TabStop = false;
             this.groupBoxOther.Text = "其他";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(262, 31);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(214, 24);
+            this.label3.TabIndex = 32;
+            this.label3.Text = "机房管理助手版本:";
+            // 
+            // radioBtn1001
+            // 
+            this.radioBtn1001.AutoSize = true;
+            this.radioBtn1001.Location = new System.Drawing.Point(266, 152);
+            this.radioBtn1001.Name = "radioBtn1001";
+            this.radioBtn1001.Size = new System.Drawing.Size(83, 28);
+            this.radioBtn1001.TabIndex = 31;
+            this.radioBtn1001.TabStop = true;
+            this.radioBtn1001.Text = "10.1";
+            this.radioBtn1001.UseVisualStyleBackColor = true;
+            this.radioBtn1001.CheckedChanged += new System.EventHandler(this.radioBtn1001_CheckedChanged);
+            // 
             // radioButtonG1002
             // 
             this.radioButtonG1002.AutoSize = true;
-            this.radioButtonG1002.Location = new System.Drawing.Point(6, 441);
+            this.radioButtonG1002.Location = new System.Drawing.Point(266, 186);
             this.radioButtonG1002.Name = "radioButtonG1002";
             this.radioButtonG1002.Size = new System.Drawing.Size(107, 28);
             this.radioButtonG1002.TabIndex = 30;
@@ -419,7 +493,7 @@
             // radioBtn0999
             // 
             this.radioBtn0999.AutoSize = true;
-            this.radioBtn0999.Location = new System.Drawing.Point(6, 371);
+            this.radioBtn0999.Location = new System.Drawing.Point(266, 116);
             this.radioBtn0999.Name = "radioBtn0999";
             this.radioBtn0999.Size = new System.Drawing.Size(83, 28);
             this.radioBtn0999.TabIndex = 29;
@@ -432,7 +506,7 @@
             // 
             this.radioBtnL0999.AutoSize = true;
             this.radioBtnL0999.Checked = true;
-            this.radioBtnL0999.Location = new System.Drawing.Point(6, 337);
+            this.radioBtnL0999.Location = new System.Drawing.Point(266, 82);
             this.radioBtnL0999.Name = "radioBtnL0999";
             this.radioBtnL0999.Size = new System.Drawing.Size(95, 28);
             this.radioBtnL0999.TabIndex = 28;
@@ -444,7 +518,7 @@
             // buttonDefullScreen
             // 
             this.buttonDefullScreen.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonDefullScreen.Location = new System.Drawing.Point(0, 205);
+            this.buttonDefullScreen.Location = new System.Drawing.Point(858, 110);
             this.buttonDefullScreen.Name = "buttonDefullScreen";
             this.buttonDefullScreen.Size = new System.Drawing.Size(256, 83);
             this.buttonDefullScreen.TabIndex = 27;
@@ -455,7 +529,7 @@
             // buttonEnableNet
             // 
             this.buttonEnableNet.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonEnableNet.Location = new System.Drawing.Point(0, 116);
+            this.buttonEnableNet.Location = new System.Drawing.Point(858, 21);
             this.buttonEnableNet.Name = "buttonEnableNet";
             this.buttonEnableNet.Size = new System.Drawing.Size(256, 83);
             this.buttonEnableNet.TabIndex = 26;
@@ -463,40 +537,181 @@
             this.buttonEnableNet.UseVisualStyleBackColor = true;
             this.buttonEnableNet.MouseClick += new System.Windows.Forms.MouseEventHandler(this.buttonEnableNet_MouseClick);
             // 
-            // radioBtn1001
+            // tabControl1
             // 
-            this.radioBtn1001.AutoSize = true;
-            this.radioBtn1001.Location = new System.Drawing.Point(6, 407);
-            this.radioBtn1001.Name = "radioBtn1001";
-            this.radioBtn1001.Size = new System.Drawing.Size(83, 28);
-            this.radioBtn1001.TabIndex = 31;
-            this.radioBtn1001.TabStop = true;
-            this.radioBtn1001.Text = "10.1";
-            this.radioBtn1001.UseVisualStyleBackColor = true;
-            this.radioBtn1001.CheckedChanged += new System.EventHandler(this.radioBtn1001_CheckedChanged);
+            this.tabControl1.Controls.Add(this.tabPageUniversal);
+            this.tabControl1.Controls.Add(this.tabPageSpecial);
+            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1181, 825);
+            this.tabControl1.TabIndex = 27;
             // 
-            // label3
+            // tabPageUniversal
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(-4, 310);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(214, 24);
-            this.label3.TabIndex = 32;
-            this.label3.Text = "机房管理助手版本:";
+            this.tabPageUniversal.Controls.Add(this.groupBoxProc);
+            this.tabPageUniversal.Controls.Add(this.groupBoxOther);
+            this.tabPageUniversal.Controls.Add(this.groupBoxPwd);
+            this.tabPageUniversal.Location = new System.Drawing.Point(4, 28);
+            this.tabPageUniversal.Name = "tabPageUniversal";
+            this.tabPageUniversal.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageUniversal.Size = new System.Drawing.Size(1173, 793);
+            this.tabPageUniversal.TabIndex = 0;
+            this.tabPageUniversal.Text = "通用";
+            this.tabPageUniversal.UseVisualStyleBackColor = true;
+            // 
+            // tabPageSpecial
+            // 
+            this.tabPageSpecial.Controls.Add(this.groupBox2);
+            this.tabPageSpecial.Controls.Add(this.groupBox1);
+            this.tabPageSpecial.Controls.Add(this.groupBoxUdp);
+            this.tabPageSpecial.Controls.Add(this.buttonDefullScreen);
+            this.tabPageSpecial.Controls.Add(this.buttonEnableNet);
+            this.tabPageSpecial.Location = new System.Drawing.Point(4, 28);
+            this.tabPageSpecial.Name = "tabPageSpecial";
+            this.tabPageSpecial.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSpecial.Size = new System.Drawing.Size(1173, 793);
+            this.tabPageSpecial.TabIndex = 1;
+            this.tabPageSpecial.Text = "专门的工具";
+            this.tabPageSpecial.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.textBoxIP);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.textBoxPort);
+            this.groupBox2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox2.Location = new System.Drawing.Point(861, 199);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(306, 135);
+            this.groupBox2.TabIndex = 29;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "UDP重放设置";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.buttonRSDisallowChat);
+            this.groupBox1.Controls.Add(this.buttonRSAllowChat);
+            this.groupBox1.Controls.Add(this.buttonRSShutdown);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.textBoxRSArgs);
+            this.groupBox1.Controls.Add(this.textBoxRSFilePath);
+            this.groupBox1.Controls.Add(this.buttonRSCmd);
+            this.groupBox1.Controls.Add(this.buttonRSUnblackScrn);
+            this.groupBox1.Controls.Add(this.buttonRSBlackScrn);
+            this.groupBox1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox1.Location = new System.Drawing.Point(6, 307);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(846, 480);
+            this.groupBox1.TabIndex = 28;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "红蜘蛛Udp重放";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(197, 93);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(70, 24);
+            this.label5.TabIndex = 22;
+            this.label5.Text = "参数:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(187, 34);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(118, 24);
+            this.label4.TabIndex = 21;
+            this.label4.Text = "文件路径:";
+            // 
+            // textBoxRSArgs
+            // 
+            this.textBoxRSArgs.Location = new System.Drawing.Point(311, 90);
+            this.textBoxRSArgs.Name = "textBoxRSArgs";
+            this.textBoxRSArgs.Size = new System.Drawing.Size(525, 35);
+            this.textBoxRSArgs.TabIndex = 20;
+            // 
+            // textBoxRSFilePath
+            // 
+            this.textBoxRSFilePath.Location = new System.Drawing.Point(311, 31);
+            this.textBoxRSFilePath.Name = "textBoxRSFilePath";
+            this.textBoxRSFilePath.Size = new System.Drawing.Size(525, 35);
+            this.textBoxRSFilePath.TabIndex = 19;
+            // 
+            // buttonRSCmd
+            // 
+            this.buttonRSCmd.Location = new System.Drawing.Point(10, 42);
+            this.buttonRSCmd.Name = "buttonRSCmd";
+            this.buttonRSCmd.Size = new System.Drawing.Size(171, 83);
+            this.buttonRSCmd.TabIndex = 18;
+            this.buttonRSCmd.Text = "发送命令";
+            this.buttonRSCmd.UseVisualStyleBackColor = true;
+            this.buttonRSCmd.Click += new System.EventHandler(this.buttonRSCmd_Click);
+            // 
+            // buttonRSUnblackScrn
+            // 
+            this.buttonRSUnblackScrn.Location = new System.Drawing.Point(10, 202);
+            this.buttonRSUnblackScrn.Name = "buttonRSUnblackScrn";
+            this.buttonRSUnblackScrn.Size = new System.Drawing.Size(171, 65);
+            this.buttonRSUnblackScrn.TabIndex = 17;
+            this.buttonRSUnblackScrn.Text = "发送解除黑屏数据";
+            this.buttonRSUnblackScrn.UseVisualStyleBackColor = true;
+            this.buttonRSUnblackScrn.Click += new System.EventHandler(this.buttonRSUnblackScrn_Click);
+            // 
+            // buttonRSBlackScrn
+            // 
+            this.buttonRSBlackScrn.Location = new System.Drawing.Point(10, 131);
+            this.buttonRSBlackScrn.Name = "buttonRSBlackScrn";
+            this.buttonRSBlackScrn.Size = new System.Drawing.Size(171, 65);
+            this.buttonRSBlackScrn.TabIndex = 16;
+            this.buttonRSBlackScrn.Text = "发送黑屏数据";
+            this.buttonRSBlackScrn.UseVisualStyleBackColor = true;
+            this.buttonRSBlackScrn.Click += new System.EventHandler(this.buttonRSBlackScrn_Click);
+            // 
+            // buttonRSShutdown
+            // 
+            this.buttonRSShutdown.Location = new System.Drawing.Point(10, 273);
+            this.buttonRSShutdown.Name = "buttonRSShutdown";
+            this.buttonRSShutdown.Size = new System.Drawing.Size(171, 65);
+            this.buttonRSShutdown.TabIndex = 23;
+            this.buttonRSShutdown.Text = "发送关机命令";
+            this.buttonRSShutdown.UseVisualStyleBackColor = true;
+            this.buttonRSShutdown.Click += new System.EventHandler(this.buttonRSShutdown_Click);
+            // 
+            // buttonRSAllowChat
+            // 
+            this.buttonRSAllowChat.Location = new System.Drawing.Point(10, 344);
+            this.buttonRSAllowChat.Name = "buttonRSAllowChat";
+            this.buttonRSAllowChat.Size = new System.Drawing.Size(171, 65);
+            this.buttonRSAllowChat.TabIndex = 24;
+            this.buttonRSAllowChat.Text = "发送允许聊天数据";
+            this.buttonRSAllowChat.UseVisualStyleBackColor = true;
+            this.buttonRSAllowChat.Click += new System.EventHandler(this.buttonRSAllowChat_Click);
+            // 
+            // buttonRSDisallowChat
+            // 
+            this.buttonRSDisallowChat.Location = new System.Drawing.Point(10, 415);
+            this.buttonRSDisallowChat.Name = "buttonRSDisallowChat";
+            this.buttonRSDisallowChat.Size = new System.Drawing.Size(171, 65);
+            this.buttonRSDisallowChat.TabIndex = 25;
+            this.buttonRSDisallowChat.Text = "发送禁止聊天数据";
+            this.buttonRSDisallowChat.UseVisualStyleBackColor = true;
+            this.buttonRSDisallowChat.Click += new System.EventHandler(this.buttonRSDisallowChat_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1144, 769);
-            this.Controls.Add(this.groupBoxOther);
-            this.Controls.Add(this.groupBoxUdp);
-            this.Controls.Add(this.groupBoxPwd);
-            this.Controls.Add(this.groupBoxProc);
+            this.ClientSize = new System.Drawing.Size(1205, 847);
+            this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
-            this.Text = "Demo";
+            this.Text = "T4CL库演示";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.groupBoxProc.ResumeLayout(false);
             this.groupBoxProc.PerformLayout();
             this.groupBoxPwd.ResumeLayout(false);
@@ -505,6 +720,13 @@
             this.groupBoxUdp.PerformLayout();
             this.groupBoxOther.ResumeLayout(false);
             this.groupBoxOther.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPageUniversal.ResumeLayout(false);
+            this.tabPageSpecial.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -548,6 +770,24 @@
         private System.Windows.Forms.RadioButton radioBtnL0999;
         private System.Windows.Forms.RadioButton radioBtn1001;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPageUniversal;
+        private System.Windows.Forms.TabPage tabPageSpecial;
+        private System.Windows.Forms.Button buttonKillRS;
+        private System.Windows.Forms.Button buttonSuspendRS;
+        private System.Windows.Forms.Button buttonResumeRS;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button buttonRSCmd;
+        private System.Windows.Forms.Button buttonRSUnblackScrn;
+        private System.Windows.Forms.Button buttonRSBlackScrn;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBoxRSArgs;
+        private System.Windows.Forms.TextBox textBoxRSFilePath;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button buttonRSShutdown;
+        private System.Windows.Forms.Button buttonRSDisallowChat;
+        private System.Windows.Forms.Button buttonRSAllowChat;
     }
 }
 

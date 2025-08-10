@@ -74,5 +74,9 @@ namespace T4CLLibrary
         [DllImport(dllName: "user32.dll", SetLastError = true)]
         public static extern bool UnhookWindowsHookEx(IntPtr hhk);
 
+        [DllImport(dllName: "user32.dll", SetLastError = true)]
+        public static extern bool SetWindowDisplayAffinity(
+            IntPtr hWnd,
+            int affinity);
     }
 }

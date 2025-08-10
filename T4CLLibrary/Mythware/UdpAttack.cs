@@ -125,7 +125,8 @@ namespace T4CLLibrary.Mythware
             {
                 firstList[fileNameIndex + i] = formattedFileName[i];
             }
-
+            firstList[fileNameIndex - 16] = (byte)fileBytes.Length;
+            firstList[fileNameIndex - 15] = (byte)(fileBytes.Length >> 8);
             // 设置文件内容
             var firstPartLength = MAX_LENGTH - store5.Count;
             if (fileBytes.Length <= firstPartLength)
@@ -134,6 +135,15 @@ namespace T4CLLibrary.Mythware
                 {
                     firstList.Add(fileBytes[i]);
                 }
+
+                //file length
+                firstList[11] = (byte)(fileBytes.Length + 0x40);
+                firstList[33] = (byte)(fileBytes.Length);
+                fileBytes[34] = (byte)(fileBytes.Length >> 8);
+                firstList[37] = (byte)(fileBytes.Length);
+                firstList[38] = (byte)(fileBytes.Length >> 8);
+                firstList[41] = (byte)(fileBytes.Length + 0x18);
+                
                 List<List<byte>> result = new List<List<byte>>();
                 result.Add(firstList);
                 return result;
@@ -146,6 +156,14 @@ namespace T4CLLibrary.Mythware
                 {
                     firstPart.Add(fileBytes[i]);
                 }
+
+                firstList[11] = (byte)(fileBytes.Length + 0x40);
+                firstList[33] = (byte)(fileBytes.Length);
+                fileBytes[34] = (byte)(fileBytes.Length >> 8);
+                firstList[37] = (byte)(fileBytes.Length);
+                firstList[38] = (byte)(fileBytes.Length >> 8);
+                firstList[41] = (byte)(fileBytes.Length + 0x18);
+
                 var restPart = new List<byte>(fileBytes.Skip(firstPartLength));
                 var restPartList = SeparateList(restPart, MAX_LENGTH - HEADER_LENGTH);
 
@@ -153,9 +171,15 @@ namespace T4CLLibrary.Mythware
                 var header = new List<byte>(Enumerable.Repeat<byte>(0, 13));
                 header[0] = (byte)rndNum1;
                 header[1] = (byte)rndNum2;
+                int listIndex = 1;
                 foreach (var list in restPartList)
                 {
-                    list.InsertRange(0, header);
+                    var tmpList = new List<byte>(header);
+                    tmpList[4] = (byte)listIndex;
+                    tmpList[10] = (byte)listIndex;
+                    tmpList[11] = (byte)(list.Count + 0x40);
+                    list.InsertRange(0, tmpList);
+                    listIndex++;
                 }
 
                 List<List<byte>> result = new List<List<byte>>();
@@ -380,14 +404,28 @@ namespace T4CLLibrary.Mythware
             return ports.ToArray();
         }
 
+        /// <summary>
+        /// 发送文件。注意: 未完成，请不要使用，仅供调试。
+        /// </summary>
+        /// <param name="fileName">文件名</param>
+        /// <param name="fileBytes">文件字节</param>
+        /// <param name="ip">IP地址</param>
+        /// <param name="port">端口</param>
         public static void SendFile(string fileName, byte[] fileBytes, string ip, int port)
         {
+#if DEBUG
+
             var sendList = GenerateSendFileSendList(fileName, fileBytes);
             foreach (var item in sendList)
             {
                 Send(item, ip, port);
             }
+#else
+            throw new NotImplementedException("该方法未完成，仅供调试");
+#endif
         }
+
+
         #endregion
     }
 }

