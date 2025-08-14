@@ -21,6 +21,12 @@ namespace T4CLLibrary.RedSpider
         static byte[] respondCheckInPayload =            { 0x10, 0xd, 0x0, 0x0, 0xa0, 0x5, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1, 0x0, 0x20, 0x0, /*start*/0xc0, 0xa8, 0xf8, 0x81/*end. 老师IP地址*/ /*后接姓名*/};
         readonly static byte[] heartbeatHeader =         { 0x10, 0x1, 0x0, 0x0, 0xa0, 0x5, 0x0, 0x0, 0x94, 0x11, 0x0, 0x0, 0x8, 0x0, /*start*/0x41, 0x64, 0x6d, 0x69, 0x6e, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0/*end 用户名*/, 0xff, 0xff, 0xff, 0xff, /*start*/0x0, 0xc, 0x29, 0x1f, 0x6d, 0x2f/*end MAC地址*/, 0x0, 0x0, 0xf9, 0x6, 0x0, 0x0, /*后接电脑名，补全0x0至1420个Bytes*/ };
 
+        /// <summary>
+        /// 发送UDP数据包到指定IP和端口
+        /// </summary>
+        /// <param name="ip">IP</param>
+        /// <param name="port">端口</param>
+        /// <param name="data">数据</param>
         private static void SendUdpPacket(string ip, int port, byte[] data)
         {
             using (var udpClient = new UdpClient())
@@ -30,6 +36,12 @@ namespace T4CLLibrary.RedSpider
             }
         }
 
+        /// <summary>
+        /// 将字符串形式的IP地址转换为字节数组
+        /// </summary>
+        /// <param name="ip">要转换的IP地址</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException">IP地址不合法</exception>
         private static byte[] StringIPToByteArray(string ip)
         {
             if (IPAddress.TryParse(ip, out IPAddress ipAddress))
