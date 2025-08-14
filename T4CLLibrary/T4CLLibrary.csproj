@@ -80,6 +80,7 @@
     <Compile Include="ProcessHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RedSpider\ProcessManager.cs" />
+    <Compile Include="RedSpider\TcpAttack.cs" />
     <Compile Include="RedSpider\UdpAttack.cs" />
     <Compile Include="UdpPortFinder.cs" />
     <Compile Include="WindowsAPIs.cs" />

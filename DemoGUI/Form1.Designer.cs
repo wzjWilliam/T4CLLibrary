@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.buttonKillJF = new System.Windows.Forms.Button();
             this.buttonKillJY = new System.Windows.Forms.Button();
             this.buttonTmpPwd = new System.Windows.Forms.Button();
@@ -61,6 +62,7 @@
             this.textBoxIP = new System.Windows.Forms.TextBox();
             this.buttonDbg = new System.Windows.Forms.Button();
             this.groupBoxOther = new System.Windows.Forms.GroupBox();
+            this.textBoxDbg = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.radioBtn1001 = new System.Windows.Forms.RadioButton();
             this.radioButtonG1002 = new System.Windows.Forms.RadioButton();
@@ -72,7 +74,14 @@
             this.tabPageUniversal = new System.Windows.Forms.TabPage();
             this.tabPageSpecial = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBoxTeacherIP = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonRSReboot = new System.Windows.Forms.Button();
+            this.checkBoxRSForceOrMaximize = new System.Windows.Forms.CheckBox();
+            this.buttonRSDisallowChat = new System.Windows.Forms.Button();
+            this.buttonRSAllowChat = new System.Windows.Forms.Button();
+            this.buttonRSShutdown = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxRSArgs = new System.Windows.Forms.TextBox();
@@ -80,9 +89,14 @@
             this.buttonRSCmd = new System.Windows.Forms.Button();
             this.buttonRSUnblackScrn = new System.Windows.Forms.Button();
             this.buttonRSBlackScrn = new System.Windows.Forms.Button();
-            this.buttonRSShutdown = new System.Windows.Forms.Button();
-            this.buttonRSAllowChat = new System.Windows.Forms.Button();
-            this.buttonRSDisallowChat = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.buttonRSCheckIn = new System.Windows.Forms.Button();
+            this.buttonRSRespondCheckIn = new System.Windows.Forms.Button();
+            this.textBoxRSStdName = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.buttonRSHeartBeat = new System.Windows.Forms.Button();
+            this.textBoxMac = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.groupBoxProc.SuspendLayout();
             this.groupBoxPwd.SuspendLayout();
             this.groupBoxUdp.SuspendLayout();
@@ -397,7 +411,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(24, 84);
+            this.label2.Location = new System.Drawing.Point(3, 88);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(70, 24);
             this.label2.TabIndex = 23;
@@ -406,16 +420,16 @@
             // textBoxPort
             // 
             this.textBoxPort.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBoxPort.Location = new System.Drawing.Point(100, 81);
+            this.textBoxPort.Location = new System.Drawing.Point(79, 85);
             this.textBoxPort.Name = "textBoxPort";
-            this.textBoxPort.Size = new System.Drawing.Size(200, 35);
+            this.textBoxPort.Size = new System.Drawing.Size(221, 35);
             this.textBoxPort.TabIndex = 22;
             this.textBoxPort.Text = "4705";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 31);
+            this.label1.Location = new System.Drawing.Point(3, 35);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(46, 24);
             this.label1.TabIndex = 21;
@@ -424,9 +438,9 @@
             // textBoxIP
             // 
             this.textBoxIP.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBoxIP.Location = new System.Drawing.Point(76, 28);
+            this.textBoxIP.Location = new System.Drawing.Point(55, 32);
             this.textBoxIP.Name = "textBoxIP";
-            this.textBoxIP.Size = new System.Drawing.Size(224, 35);
+            this.textBoxIP.Size = new System.Drawing.Size(245, 35);
             this.textBoxIP.TabIndex = 20;
             this.textBoxIP.Text = "255.255.255.255";
             // 
@@ -443,6 +457,7 @@
             // 
             // groupBoxOther
             // 
+            this.groupBoxOther.Controls.Add(this.textBoxDbg);
             this.groupBoxOther.Controls.Add(this.label3);
             this.groupBoxOther.Controls.Add(this.radioBtn1001);
             this.groupBoxOther.Controls.Add(this.radioButtonG1002);
@@ -456,6 +471,13 @@
             this.groupBoxOther.TabIndex = 26;
             this.groupBoxOther.TabStop = false;
             this.groupBoxOther.Text = "其他";
+            // 
+            // textBoxDbg
+            // 
+            this.textBoxDbg.Location = new System.Drawing.Point(6, 135);
+            this.textBoxDbg.Name = "textBoxDbg";
+            this.textBoxDbg.Size = new System.Drawing.Size(239, 35);
+            this.textBoxDbg.TabIndex = 33;
             // 
             // label3
             // 
@@ -544,7 +566,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1181, 825);
+            this.tabControl1.Size = new System.Drawing.Size(1181, 852);
             this.tabControl1.TabIndex = 27;
             // 
             // tabPageUniversal
@@ -570,13 +592,17 @@
             this.tabPageSpecial.Location = new System.Drawing.Point(4, 28);
             this.tabPageSpecial.Name = "tabPageSpecial";
             this.tabPageSpecial.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSpecial.Size = new System.Drawing.Size(1173, 793);
+            this.tabPageSpecial.Size = new System.Drawing.Size(1173, 820);
             this.tabPageSpecial.TabIndex = 1;
             this.tabPageSpecial.Text = "专门的工具";
             this.tabPageSpecial.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.textBoxMac);
+            this.groupBox2.Controls.Add(this.textBoxTeacherIP);
+            this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.textBoxIP);
             this.groupBox2.Controls.Add(this.label2);
@@ -584,13 +610,38 @@
             this.groupBox2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox2.Location = new System.Drawing.Point(861, 199);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(306, 135);
+            this.groupBox2.Size = new System.Drawing.Size(306, 298);
             this.groupBox2.TabIndex = 29;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "UDP重放设置";
             // 
+            // textBoxTeacherIP
+            // 
+            this.textBoxTeacherIP.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBoxTeacherIP.Location = new System.Drawing.Point(103, 135);
+            this.textBoxTeacherIP.Name = "textBoxTeacherIP";
+            this.textBoxTeacherIP.Size = new System.Drawing.Size(197, 35);
+            this.textBoxTeacherIP.TabIndex = 25;
+            this.textBoxTeacherIP.Text = "192.168.248.114";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(3, 143);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(94, 24);
+            this.label6.TabIndex = 24;
+            this.label6.Text = "老师IP:";
+            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.buttonRSHeartBeat);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.textBoxRSStdName);
+            this.groupBox1.Controls.Add(this.buttonRSRespondCheckIn);
+            this.groupBox1.Controls.Add(this.buttonRSCheckIn);
+            this.groupBox1.Controls.Add(this.buttonRSReboot);
+            this.groupBox1.Controls.Add(this.checkBoxRSForceOrMaximize);
             this.groupBox1.Controls.Add(this.buttonRSDisallowChat);
             this.groupBox1.Controls.Add(this.buttonRSAllowChat);
             this.groupBox1.Controls.Add(this.buttonRSShutdown);
@@ -604,10 +655,61 @@
             this.groupBox1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox1.Location = new System.Drawing.Point(6, 307);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(846, 480);
+            this.groupBox1.Size = new System.Drawing.Size(846, 507);
             this.groupBox1.TabIndex = 28;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "红蜘蛛Udp重放";
+            // 
+            // buttonRSReboot
+            // 
+            this.buttonRSReboot.Location = new System.Drawing.Point(183, 236);
+            this.buttonRSReboot.Name = "buttonRSReboot";
+            this.buttonRSReboot.Size = new System.Drawing.Size(171, 65);
+            this.buttonRSReboot.TabIndex = 27;
+            this.buttonRSReboot.Text = "发送重启命令";
+            this.buttonRSReboot.UseVisualStyleBackColor = true;
+            this.buttonRSReboot.Click += new System.EventHandler(this.buttonRSReboot_Click);
+            // 
+            // checkBoxRSForceOrMaximize
+            // 
+            this.checkBoxRSForceOrMaximize.AutoSize = true;
+            this.checkBoxRSForceOrMaximize.Location = new System.Drawing.Point(10, 131);
+            this.checkBoxRSForceOrMaximize.Name = "checkBoxRSForceOrMaximize";
+            this.checkBoxRSForceOrMaximize.Size = new System.Drawing.Size(216, 28);
+            this.checkBoxRSForceOrMaximize.TabIndex = 26;
+            this.checkBoxRSForceOrMaximize.Text = "是否强制/最大化";
+            this.toolTip1.SetToolTip(this.checkBoxRSForceOrMaximize, "勾选后，若使用关机/重启功能会强制重启，使用发送命令的功能会以最大化执行");
+            this.checkBoxRSForceOrMaximize.UseVisualStyleBackColor = true;
+            // 
+            // buttonRSDisallowChat
+            // 
+            this.buttonRSDisallowChat.Location = new System.Drawing.Point(183, 307);
+            this.buttonRSDisallowChat.Name = "buttonRSDisallowChat";
+            this.buttonRSDisallowChat.Size = new System.Drawing.Size(171, 65);
+            this.buttonRSDisallowChat.TabIndex = 25;
+            this.buttonRSDisallowChat.Text = "发送禁止聊天数据";
+            this.buttonRSDisallowChat.UseVisualStyleBackColor = true;
+            this.buttonRSDisallowChat.Click += new System.EventHandler(this.buttonRSDisallowChat_Click);
+            // 
+            // buttonRSAllowChat
+            // 
+            this.buttonRSAllowChat.Location = new System.Drawing.Point(6, 307);
+            this.buttonRSAllowChat.Name = "buttonRSAllowChat";
+            this.buttonRSAllowChat.Size = new System.Drawing.Size(171, 65);
+            this.buttonRSAllowChat.TabIndex = 24;
+            this.buttonRSAllowChat.Text = "发送允许聊天数据";
+            this.buttonRSAllowChat.UseVisualStyleBackColor = true;
+            this.buttonRSAllowChat.Click += new System.EventHandler(this.buttonRSAllowChat_Click);
+            // 
+            // buttonRSShutdown
+            // 
+            this.buttonRSShutdown.Location = new System.Drawing.Point(6, 236);
+            this.buttonRSShutdown.Name = "buttonRSShutdown";
+            this.buttonRSShutdown.Size = new System.Drawing.Size(171, 65);
+            this.buttonRSShutdown.TabIndex = 23;
+            this.buttonRSShutdown.Text = "发送关机命令";
+            this.buttonRSShutdown.UseVisualStyleBackColor = true;
+            this.buttonRSShutdown.Click += new System.EventHandler(this.buttonRSShutdown_Click);
             // 
             // label5
             // 
@@ -653,7 +755,7 @@
             // 
             // buttonRSUnblackScrn
             // 
-            this.buttonRSUnblackScrn.Location = new System.Drawing.Point(10, 202);
+            this.buttonRSUnblackScrn.Location = new System.Drawing.Point(6, 165);
             this.buttonRSUnblackScrn.Name = "buttonRSUnblackScrn";
             this.buttonRSUnblackScrn.Size = new System.Drawing.Size(171, 65);
             this.buttonRSUnblackScrn.TabIndex = 17;
@@ -663,7 +765,7 @@
             // 
             // buttonRSBlackScrn
             // 
-            this.buttonRSBlackScrn.Location = new System.Drawing.Point(10, 131);
+            this.buttonRSBlackScrn.Location = new System.Drawing.Point(183, 165);
             this.buttonRSBlackScrn.Name = "buttonRSBlackScrn";
             this.buttonRSBlackScrn.Size = new System.Drawing.Size(171, 65);
             this.buttonRSBlackScrn.TabIndex = 16;
@@ -671,41 +773,75 @@
             this.buttonRSBlackScrn.UseVisualStyleBackColor = true;
             this.buttonRSBlackScrn.Click += new System.EventHandler(this.buttonRSBlackScrn_Click);
             // 
-            // buttonRSShutdown
+            // buttonRSCheckIn
             // 
-            this.buttonRSShutdown.Location = new System.Drawing.Point(10, 273);
-            this.buttonRSShutdown.Name = "buttonRSShutdown";
-            this.buttonRSShutdown.Size = new System.Drawing.Size(171, 65);
-            this.buttonRSShutdown.TabIndex = 23;
-            this.buttonRSShutdown.Text = "发送关机命令";
-            this.buttonRSShutdown.UseVisualStyleBackColor = true;
-            this.buttonRSShutdown.Click += new System.EventHandler(this.buttonRSShutdown_Click);
+            this.buttonRSCheckIn.Location = new System.Drawing.Point(6, 378);
+            this.buttonRSCheckIn.Name = "buttonRSCheckIn";
+            this.buttonRSCheckIn.Size = new System.Drawing.Size(171, 65);
+            this.buttonRSCheckIn.TabIndex = 28;
+            this.buttonRSCheckIn.Text = "发送签到数据";
+            this.buttonRSCheckIn.UseVisualStyleBackColor = true;
+            this.buttonRSCheckIn.Click += new System.EventHandler(this.buttonRSCheckIn_Click);
             // 
-            // buttonRSAllowChat
+            // buttonRSRespondCheckIn
             // 
-            this.buttonRSAllowChat.Location = new System.Drawing.Point(10, 344);
-            this.buttonRSAllowChat.Name = "buttonRSAllowChat";
-            this.buttonRSAllowChat.Size = new System.Drawing.Size(171, 65);
-            this.buttonRSAllowChat.TabIndex = 24;
-            this.buttonRSAllowChat.Text = "发送允许聊天数据";
-            this.buttonRSAllowChat.UseVisualStyleBackColor = true;
-            this.buttonRSAllowChat.Click += new System.EventHandler(this.buttonRSAllowChat_Click);
+            this.buttonRSRespondCheckIn.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonRSRespondCheckIn.Location = new System.Drawing.Point(183, 378);
+            this.buttonRSRespondCheckIn.Name = "buttonRSRespondCheckIn";
+            this.buttonRSRespondCheckIn.Size = new System.Drawing.Size(171, 65);
+            this.buttonRSRespondCheckIn.TabIndex = 29;
+            this.buttonRSRespondCheckIn.Text = "发送响应签到数据";
+            this.buttonRSRespondCheckIn.UseVisualStyleBackColor = true;
+            this.buttonRSRespondCheckIn.Click += new System.EventHandler(this.buttonRSRespondCheckIn_Click);
             // 
-            // buttonRSDisallowChat
+            // textBoxRSStdName
             // 
-            this.buttonRSDisallowChat.Location = new System.Drawing.Point(10, 415);
-            this.buttonRSDisallowChat.Name = "buttonRSDisallowChat";
-            this.buttonRSDisallowChat.Size = new System.Drawing.Size(171, 65);
-            this.buttonRSDisallowChat.TabIndex = 25;
-            this.buttonRSDisallowChat.Text = "发送禁止聊天数据";
-            this.buttonRSDisallowChat.UseVisualStyleBackColor = true;
-            this.buttonRSDisallowChat.Click += new System.EventHandler(this.buttonRSDisallowChat_Click);
+            this.textBoxRSStdName.Location = new System.Drawing.Point(82, 449);
+            this.textBoxRSStdName.Name = "textBoxRSStdName";
+            this.textBoxRSStdName.Size = new System.Drawing.Size(272, 35);
+            this.textBoxRSStdName.TabIndex = 30;
+            this.textBoxRSStdName.Text = "Tank";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 455);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(70, 24);
+            this.label7.TabIndex = 31;
+            this.label7.Text = "姓名:";
+            // 
+            // buttonRSHeartBeat
+            // 
+            this.buttonRSHeartBeat.Location = new System.Drawing.Point(360, 165);
+            this.buttonRSHeartBeat.Name = "buttonRSHeartBeat";
+            this.buttonRSHeartBeat.Size = new System.Drawing.Size(171, 65);
+            this.buttonRSHeartBeat.TabIndex = 32;
+            this.buttonRSHeartBeat.Text = "开始发送心跳数据";
+            this.buttonRSHeartBeat.UseVisualStyleBackColor = true;
+            this.buttonRSHeartBeat.Click += new System.EventHandler(this.buttonRSHeartBeat_Click);
+            // 
+            // textBoxMac
+            // 
+            this.textBoxMac.Location = new System.Drawing.Point(68, 190);
+            this.textBoxMac.Name = "textBoxMac";
+            this.textBoxMac.Size = new System.Drawing.Size(232, 35);
+            this.textBoxMac.TabIndex = 26;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 193);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(70, 24);
+            this.label8.TabIndex = 27;
+            this.label8.Text = "MAC: ";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1205, 847);
+            this.ClientSize = new System.Drawing.Size(1205, 876);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Text = "T4CL库演示";
@@ -788,6 +924,19 @@
         private System.Windows.Forms.Button buttonRSShutdown;
         private System.Windows.Forms.Button buttonRSDisallowChat;
         private System.Windows.Forms.Button buttonRSAllowChat;
+        private System.Windows.Forms.CheckBox checkBoxRSForceOrMaximize;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button buttonRSReboot;
+        private System.Windows.Forms.TextBox textBoxDbg;
+        private System.Windows.Forms.TextBox textBoxTeacherIP;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBoxRSStdName;
+        private System.Windows.Forms.Button buttonRSRespondCheckIn;
+        private System.Windows.Forms.Button buttonRSCheckIn;
+        private System.Windows.Forms.Button buttonRSHeartBeat;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBoxMac;
     }
 }
 
