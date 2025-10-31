@@ -27,6 +27,7 @@ namespace DemoGUI
         Thread _heartBeatThread;
         bool _isHeartBeating = false;
         List<PhysicalAddress> macAddrs = new List<PhysicalAddress>();
+        PhysicalAddress chosenMacAddr;
         T4CLLibrary.Jfglzs.PasswordType passwordType = T4CLLibrary.Jfglzs.PasswordType.A;
         public Form1()
         {
@@ -53,11 +54,20 @@ namespace DemoGUI
                         macAddrs.Add(mac);
                     }
                 }
+                comboBoxMac.Items.AddRange(macAddrs.Select(m => m.ToString()).ToArray());
+                if(comboBoxMac.Items.Count > 0)
+                {
+                    comboBoxMac.SelectedIndex = 0;
+                    chosenMacAddr = macAddrs[0];
+                }
             }
             catch (Exception ex)
             {
                 ShowError($"获取MAC地址失败: {ex.Message}");
             }
+
+            textBoxUserName.Text = Environment.UserName;
+            textBoxMachineName.Text = Environment.MachineName;
 
         }
 
@@ -67,13 +77,19 @@ namespace DemoGUI
         {
             try
             {
+                var userName = textBoxUserName.Text;
+                var machineName = textBoxMachineName.Text;
                 while (true)
                 {
                     var port = textBoxPort.Text != string.Empty ? int.Parse(textBoxPort.Text) : 1689;
-                    var mac = textBoxMac.Text;
-                    var macAddr = macAddrs.FirstOrDefault(); //仅为示例，实际应让用户来选择（只是测试时第一个就是以太网网卡）
+                    
 
-                    T4CLLibrary.RedSpider.UdpAttack.SendHeartBeatPacket(macAddr,textBoxIP.Text, port, Environment.UserName, Environment.MachineName);
+                    this.Invoke(new Action(() =>
+                    {
+                        chosenMacAddr = PhysicalAddress.Parse(comboBoxMac.Text);
+                    }));
+                    
+                    T4CLLibrary.RedSpider.UdpAttack.SendHeartBeatPacket(chosenMacAddr,textBoxIP.Text, port, userName, machineName);
                     Thread.Sleep(1000);
                 }
             }
@@ -103,8 +119,20 @@ namespace DemoGUI
         {
             try
             {
-                T4CLLibrary.Jfglzs.ProcessKiller.KillAllProcesses();
+                switch (passwordType)
+                {
+                    case T4CLLibrary.Jfglzs.PasswordType.E:
+                        T4CLLibrary.Jfglzs.ProcessKiller.KillAllProcess1103();
+                        break;
+                    case T4CLLibrary.Jfglzs.PasswordType.F:
+                        T4CLLibrary.Jfglzs.ProcessKiller.KillAllProcess1160();
+                        break;
+                    default:
+                        T4CLLibrary.Jfglzs.ProcessKiller.KillAllProcesses();
+                        break;
+                }
                 ShowInfo("机房管理助手进程已结束");
+
             }
             catch (Exception ex)
             {
@@ -169,13 +197,15 @@ namespace DemoGUI
                 case T4CLLibrary.Jfglzs.PasswordType.D:
                     pwd = T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword1001();
                     break;
+                case T4CLLibrary.Jfglzs.PasswordType.E:
+                    pwd = T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword1103();
+                    break;
                 default:
                     ShowError("未知密码类型");
                     return;
             }
-
-            ShowInfo($"生成的临时密码为：{pwd}, 已复制到剪切板");
             Clipboard.SetText(pwd);
+            ShowInfo($"生成的临时密码为：{pwd}, 已复制到剪切板");
         }
 
         
@@ -209,6 +239,14 @@ namespace DemoGUI
                     case T4CLLibrary.Jfglzs.PasswordType.D:
                         encryptedPwd = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPassword1002(pwd);
                         T4CLLibrary.Jfglzs.PasswordCracker.SetEncryptedPassword(encryptedPwd,T4CLLibrary.Jfglzs.PasswordType.D);
+                        break;
+                    case T4CLLibrary.Jfglzs.PasswordType.E:
+                        encryptedPwd = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPassword1103(pwd);
+                        T4CLLibrary.Jfglzs.PasswordCracker.SetEncryptedPassword(encryptedPwd, T4CLLibrary.Jfglzs.PasswordType.E);
+                        break;
+                    case T4CLLibrary.Jfglzs.PasswordType.F:
+                        encryptedPwd = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPassword1103(pwd);//1160同1103
+                        T4CLLibrary.Jfglzs.PasswordCracker.SetEncryptedPassword(encryptedPwd, T4CLLibrary.Jfglzs.PasswordType.E);
                         break;
                     default:
                         break;
@@ -488,16 +526,18 @@ namespace DemoGUI
             //{
             //    ShowError($"发送文件失败: {ex.Message}");
             //}
-            try
-            {
-                var teacherIP = textBoxTeacherIP.Text;
-                T4CLLibrary.RedSpider.UdpAttack.SendRespondCheckInPacket("AAA", "255.255.255.255",teacherIP:teacherIP);
-                ShowInfo($"已发送");
-            }
-            catch (Exception ex)
-            {
-                ShowError("错误: " + ex.Message);
-            }
+            //try
+            //{
+            //    var teacherIP = textBoxTeacherIP.Text;
+            //    T4CLLibrary.RedSpider.UdpAttack.SendRespondCheckInPacket("AAA", "255.255.255.255",teacherIP:teacherIP);
+            //    ShowInfo($"已发送");
+            //}
+            //catch (Exception ex)
+            //{
+            //    ShowError("错误: " + ex.Message);
+            //}
+            var rndName1103 = T4CLLibrary.Jfglzs.ProcessKiller.GetRandomProcessName1103();
+            ShowInfo($"1103进程名: {rndName1103}");
 
         }
 
@@ -784,6 +824,16 @@ namespace DemoGUI
 
                 throw;
             }
+        }
+
+        private void radioButton1103_CheckedChanged(object sender, EventArgs e)
+        {
+            passwordType = T4CLLibrary.Jfglzs.PasswordType.E;
+        }
+
+        private void radioButton1160_CheckedChanged(object sender, EventArgs e)
+        {
+            passwordType = T4CLLibrary.Jfglzs.PasswordType.F;
         }
     }
 }

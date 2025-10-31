@@ -62,6 +62,7 @@
             this.textBoxIP = new System.Windows.Forms.TextBox();
             this.buttonDbg = new System.Windows.Forms.Button();
             this.groupBoxOther = new System.Windows.Forms.GroupBox();
+            this.radioButton1103 = new System.Windows.Forms.RadioButton();
             this.textBoxDbg = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.radioBtn1001 = new System.Windows.Forms.RadioButton();
@@ -74,9 +75,20 @@
             this.tabPageUniversal = new System.Windows.Forms.TabPage();
             this.tabPageSpecial = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxMachineName = new System.Windows.Forms.TextBox();
+            this.textBoxUserName = new System.Windows.Forms.TextBox();
+            this.comboBoxMac = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.textBoxTeacherIP = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonRSHeartBeat = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBoxRSStdName = new System.Windows.Forms.TextBox();
+            this.buttonRSRespondCheckIn = new System.Windows.Forms.Button();
+            this.buttonRSCheckIn = new System.Windows.Forms.Button();
             this.buttonRSReboot = new System.Windows.Forms.Button();
             this.checkBoxRSForceOrMaximize = new System.Windows.Forms.CheckBox();
             this.buttonRSDisallowChat = new System.Windows.Forms.Button();
@@ -90,13 +102,7 @@
             this.buttonRSUnblackScrn = new System.Windows.Forms.Button();
             this.buttonRSBlackScrn = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.buttonRSCheckIn = new System.Windows.Forms.Button();
-            this.buttonRSRespondCheckIn = new System.Windows.Forms.Button();
-            this.textBoxRSStdName = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.buttonRSHeartBeat = new System.Windows.Forms.Button();
-            this.textBoxMac = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.radioButton1160 = new System.Windows.Forms.RadioButton();
             this.groupBoxProc.SuspendLayout();
             this.groupBoxPwd.SuspendLayout();
             this.groupBoxUdp.SuspendLayout();
@@ -457,6 +463,8 @@
             // 
             // groupBoxOther
             // 
+            this.groupBoxOther.Controls.Add(this.radioButton1160);
+            this.groupBoxOther.Controls.Add(this.radioButton1103);
             this.groupBoxOther.Controls.Add(this.textBoxDbg);
             this.groupBoxOther.Controls.Add(this.label3);
             this.groupBoxOther.Controls.Add(this.radioBtn1001);
@@ -467,10 +475,22 @@
             this.groupBoxOther.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBoxOther.Location = new System.Drawing.Point(469, 539);
             this.groupBoxOther.Name = "groupBoxOther";
-            this.groupBoxOther.Size = new System.Drawing.Size(479, 240);
+            this.groupBoxOther.Size = new System.Drawing.Size(479, 275);
             this.groupBoxOther.TabIndex = 26;
             this.groupBoxOther.TabStop = false;
             this.groupBoxOther.Text = "其他";
+            // 
+            // radioButton1103
+            // 
+            this.radioButton1103.AutoSize = true;
+            this.radioButton1103.Location = new System.Drawing.Point(266, 200);
+            this.radioButton1103.Name = "radioButton1103";
+            this.radioButton1103.Size = new System.Drawing.Size(95, 28);
+            this.radioButton1103.TabIndex = 34;
+            this.radioButton1103.TabStop = true;
+            this.radioButton1103.Text = "11.03";
+            this.radioButton1103.UseVisualStyleBackColor = true;
+            this.radioButton1103.CheckedChanged += new System.EventHandler(this.radioButton1103_CheckedChanged);
             // 
             // textBoxDbg
             // 
@@ -491,7 +511,7 @@
             // radioBtn1001
             // 
             this.radioBtn1001.AutoSize = true;
-            this.radioBtn1001.Location = new System.Drawing.Point(266, 152);
+            this.radioBtn1001.Location = new System.Drawing.Point(266, 132);
             this.radioBtn1001.Name = "radioBtn1001";
             this.radioBtn1001.Size = new System.Drawing.Size(83, 28);
             this.radioBtn1001.TabIndex = 31;
@@ -503,19 +523,19 @@
             // radioButtonG1002
             // 
             this.radioButtonG1002.AutoSize = true;
-            this.radioButtonG1002.Location = new System.Drawing.Point(266, 186);
+            this.radioButtonG1002.Location = new System.Drawing.Point(266, 166);
             this.radioButtonG1002.Name = "radioButtonG1002";
-            this.radioButtonG1002.Size = new System.Drawing.Size(107, 28);
+            this.radioButtonG1002.Size = new System.Drawing.Size(83, 28);
             this.radioButtonG1002.TabIndex = 30;
             this.radioButtonG1002.TabStop = true;
-            this.radioButtonG1002.Text = ">=10.2";
+            this.radioButtonG1002.Text = "10.2";
             this.radioButtonG1002.UseVisualStyleBackColor = true;
             this.radioButtonG1002.CheckedChanged += new System.EventHandler(this.radioButtonG1002_CheckedChanged);
             // 
             // radioBtn0999
             // 
             this.radioBtn0999.AutoSize = true;
-            this.radioBtn0999.Location = new System.Drawing.Point(266, 116);
+            this.radioBtn0999.Location = new System.Drawing.Point(266, 96);
             this.radioBtn0999.Name = "radioBtn0999";
             this.radioBtn0999.Size = new System.Drawing.Size(83, 28);
             this.radioBtn0999.TabIndex = 29;
@@ -528,7 +548,7 @@
             // 
             this.radioBtnL0999.AutoSize = true;
             this.radioBtnL0999.Checked = true;
-            this.radioBtnL0999.Location = new System.Drawing.Point(266, 82);
+            this.radioBtnL0999.Location = new System.Drawing.Point(266, 62);
             this.radioBtnL0999.Name = "radioBtnL0999";
             this.radioBtnL0999.Size = new System.Drawing.Size(95, 28);
             this.radioBtnL0999.TabIndex = 28;
@@ -577,7 +597,7 @@
             this.tabPageUniversal.Location = new System.Drawing.Point(4, 28);
             this.tabPageUniversal.Name = "tabPageUniversal";
             this.tabPageUniversal.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageUniversal.Size = new System.Drawing.Size(1173, 793);
+            this.tabPageUniversal.Size = new System.Drawing.Size(1173, 820);
             this.tabPageUniversal.TabIndex = 0;
             this.tabPageUniversal.Text = "通用";
             this.tabPageUniversal.UseVisualStyleBackColor = true;
@@ -599,8 +619,12 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.textBoxMachineName);
+            this.groupBox2.Controls.Add(this.textBoxUserName);
+            this.groupBox2.Controls.Add(this.comboBoxMac);
             this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.textBoxMac);
             this.groupBox2.Controls.Add(this.textBoxTeacherIP);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.label1);
@@ -610,10 +634,59 @@
             this.groupBox2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox2.Location = new System.Drawing.Point(861, 199);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(306, 298);
+            this.groupBox2.Size = new System.Drawing.Size(306, 358);
             this.groupBox2.TabIndex = 29;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "UDP重放设置";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 293);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(94, 24);
+            this.label10.TabIndex = 32;
+            this.label10.Text = "电脑名:";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 235);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(94, 24);
+            this.label9.TabIndex = 31;
+            this.label9.Text = "用户名:";
+            // 
+            // textBoxMachineName
+            // 
+            this.textBoxMachineName.Location = new System.Drawing.Point(103, 290);
+            this.textBoxMachineName.Name = "textBoxMachineName";
+            this.textBoxMachineName.Size = new System.Drawing.Size(197, 35);
+            this.textBoxMachineName.TabIndex = 30;
+            // 
+            // textBoxUserName
+            // 
+            this.textBoxUserName.Location = new System.Drawing.Point(103, 232);
+            this.textBoxUserName.Name = "textBoxUserName";
+            this.textBoxUserName.Size = new System.Drawing.Size(197, 35);
+            this.textBoxUserName.TabIndex = 29;
+            // 
+            // comboBoxMac
+            // 
+            this.comboBoxMac.FormattingEnabled = true;
+            this.comboBoxMac.Location = new System.Drawing.Point(76, 185);
+            this.comboBoxMac.Name = "comboBoxMac";
+            this.comboBoxMac.Size = new System.Drawing.Size(224, 32);
+            this.comboBoxMac.TabIndex = 28;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 193);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(70, 24);
+            this.label8.TabIndex = 27;
+            this.label8.Text = "MAC: ";
             // 
             // textBoxTeacherIP
             // 
@@ -659,6 +732,54 @@
             this.groupBox1.TabIndex = 28;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "红蜘蛛Udp重放";
+            // 
+            // buttonRSHeartBeat
+            // 
+            this.buttonRSHeartBeat.Location = new System.Drawing.Point(360, 165);
+            this.buttonRSHeartBeat.Name = "buttonRSHeartBeat";
+            this.buttonRSHeartBeat.Size = new System.Drawing.Size(171, 65);
+            this.buttonRSHeartBeat.TabIndex = 32;
+            this.buttonRSHeartBeat.Text = "开始发送心跳数据";
+            this.buttonRSHeartBeat.UseVisualStyleBackColor = true;
+            this.buttonRSHeartBeat.Click += new System.EventHandler(this.buttonRSHeartBeat_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 455);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(70, 24);
+            this.label7.TabIndex = 31;
+            this.label7.Text = "姓名:";
+            // 
+            // textBoxRSStdName
+            // 
+            this.textBoxRSStdName.Location = new System.Drawing.Point(82, 449);
+            this.textBoxRSStdName.Name = "textBoxRSStdName";
+            this.textBoxRSStdName.Size = new System.Drawing.Size(272, 35);
+            this.textBoxRSStdName.TabIndex = 30;
+            this.textBoxRSStdName.Text = "Tank";
+            // 
+            // buttonRSRespondCheckIn
+            // 
+            this.buttonRSRespondCheckIn.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonRSRespondCheckIn.Location = new System.Drawing.Point(183, 378);
+            this.buttonRSRespondCheckIn.Name = "buttonRSRespondCheckIn";
+            this.buttonRSRespondCheckIn.Size = new System.Drawing.Size(171, 65);
+            this.buttonRSRespondCheckIn.TabIndex = 29;
+            this.buttonRSRespondCheckIn.Text = "发送响应签到数据";
+            this.buttonRSRespondCheckIn.UseVisualStyleBackColor = true;
+            this.buttonRSRespondCheckIn.Click += new System.EventHandler(this.buttonRSRespondCheckIn_Click);
+            // 
+            // buttonRSCheckIn
+            // 
+            this.buttonRSCheckIn.Location = new System.Drawing.Point(6, 378);
+            this.buttonRSCheckIn.Name = "buttonRSCheckIn";
+            this.buttonRSCheckIn.Size = new System.Drawing.Size(171, 65);
+            this.buttonRSCheckIn.TabIndex = 28;
+            this.buttonRSCheckIn.Text = "发送签到数据";
+            this.buttonRSCheckIn.UseVisualStyleBackColor = true;
+            this.buttonRSCheckIn.Click += new System.EventHandler(this.buttonRSCheckIn_Click);
             // 
             // buttonRSReboot
             // 
@@ -773,69 +894,17 @@
             this.buttonRSBlackScrn.UseVisualStyleBackColor = true;
             this.buttonRSBlackScrn.Click += new System.EventHandler(this.buttonRSBlackScrn_Click);
             // 
-            // buttonRSCheckIn
+            // radioButton1160
             // 
-            this.buttonRSCheckIn.Location = new System.Drawing.Point(6, 378);
-            this.buttonRSCheckIn.Name = "buttonRSCheckIn";
-            this.buttonRSCheckIn.Size = new System.Drawing.Size(171, 65);
-            this.buttonRSCheckIn.TabIndex = 28;
-            this.buttonRSCheckIn.Text = "发送签到数据";
-            this.buttonRSCheckIn.UseVisualStyleBackColor = true;
-            this.buttonRSCheckIn.Click += new System.EventHandler(this.buttonRSCheckIn_Click);
-            // 
-            // buttonRSRespondCheckIn
-            // 
-            this.buttonRSRespondCheckIn.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonRSRespondCheckIn.Location = new System.Drawing.Point(183, 378);
-            this.buttonRSRespondCheckIn.Name = "buttonRSRespondCheckIn";
-            this.buttonRSRespondCheckIn.Size = new System.Drawing.Size(171, 65);
-            this.buttonRSRespondCheckIn.TabIndex = 29;
-            this.buttonRSRespondCheckIn.Text = "发送响应签到数据";
-            this.buttonRSRespondCheckIn.UseVisualStyleBackColor = true;
-            this.buttonRSRespondCheckIn.Click += new System.EventHandler(this.buttonRSRespondCheckIn_Click);
-            // 
-            // textBoxRSStdName
-            // 
-            this.textBoxRSStdName.Location = new System.Drawing.Point(82, 449);
-            this.textBoxRSStdName.Name = "textBoxRSStdName";
-            this.textBoxRSStdName.Size = new System.Drawing.Size(272, 35);
-            this.textBoxRSStdName.TabIndex = 30;
-            this.textBoxRSStdName.Text = "Tank";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 455);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(70, 24);
-            this.label7.TabIndex = 31;
-            this.label7.Text = "姓名:";
-            // 
-            // buttonRSHeartBeat
-            // 
-            this.buttonRSHeartBeat.Location = new System.Drawing.Point(360, 165);
-            this.buttonRSHeartBeat.Name = "buttonRSHeartBeat";
-            this.buttonRSHeartBeat.Size = new System.Drawing.Size(171, 65);
-            this.buttonRSHeartBeat.TabIndex = 32;
-            this.buttonRSHeartBeat.Text = "开始发送心跳数据";
-            this.buttonRSHeartBeat.UseVisualStyleBackColor = true;
-            this.buttonRSHeartBeat.Click += new System.EventHandler(this.buttonRSHeartBeat_Click);
-            // 
-            // textBoxMac
-            // 
-            this.textBoxMac.Location = new System.Drawing.Point(68, 190);
-            this.textBoxMac.Name = "textBoxMac";
-            this.textBoxMac.Size = new System.Drawing.Size(232, 35);
-            this.textBoxMac.TabIndex = 26;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 193);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(70, 24);
-            this.label8.TabIndex = 27;
-            this.label8.Text = "MAC: ";
+            this.radioButton1160.AutoSize = true;
+            this.radioButton1160.Location = new System.Drawing.Point(266, 234);
+            this.radioButton1160.Name = "radioButton1160";
+            this.radioButton1160.Size = new System.Drawing.Size(83, 28);
+            this.radioButton1160.TabIndex = 35;
+            this.radioButton1160.TabStop = true;
+            this.radioButton1160.Text = "11.6";
+            this.radioButton1160.UseVisualStyleBackColor = true;
+            this.radioButton1160.CheckedChanged += new System.EventHandler(this.radioButton1160_CheckedChanged);
             // 
             // Form1
             // 
@@ -936,7 +1005,13 @@
         private System.Windows.Forms.Button buttonRSCheckIn;
         private System.Windows.Forms.Button buttonRSHeartBeat;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBoxMac;
+        private System.Windows.Forms.ComboBox comboBoxMac;
+        private System.Windows.Forms.TextBox textBoxUserName;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBoxMachineName;
+        private System.Windows.Forms.RadioButton radioButton1103;
+        private System.Windows.Forms.RadioButton radioButton1160;
     }
 }
 

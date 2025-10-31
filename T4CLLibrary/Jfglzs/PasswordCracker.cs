@@ -24,13 +24,22 @@ namespace T4CLLibrary.Jfglzs
         /// </summary>
         C,
         /// <summary>
-        /// 10.2版及以后
+        /// 10.2版
         /// </summary>
         D,
+        /// <summary>
+        /// 11.3版
+        /// </summary>
+        E,
+        /// <summary>
+        /// 11.6版
+        /// </summary>
+        F
     }
 
     public static class PasswordCracker
     {
+        #region 生成临时密码
         /// <summary>
         /// 生成机房管理助手每日临时密码
         /// </summary>
@@ -45,13 +54,17 @@ namespace T4CLLibrary.Jfglzs
             return "8"+(combinedValue * 16).ToString();
         }
 
+        /// <summary>
+        /// 生成机房管理助手每日临时密码
+        /// </summary>
+        /// <returns>密码</returns>
         public static string GenerateTemporaryPassword()
         {
             return GenerateTemporaryPassword(DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Year);
         }
 
         /// <summary>
-        /// 生成机房管理助手每日临时密码(10.2版及以后)
+        /// 生成机房管理助手每日临时密码(10.1版及以后)
         /// 注意：机房管理助手获取日期的方法是给百度发送请求获取的，可能是为了防止用户修改系统时间。
         /// </summary>
         /// <param name="month">月</param>
@@ -68,7 +81,7 @@ namespace T4CLLibrary.Jfglzs
         }
 
         /// <summary>
-        /// 生成机房管理助手每日临时密码(10.2版及以后)
+        /// 生成机房管理助手每日临时密码(10.1版及以后)
         /// </summary>
         /// <returns>密码</returns>
         public static string GenerateTemporaryPassword1001()
@@ -76,8 +89,29 @@ namespace T4CLLibrary.Jfglzs
             return GenerateTemporaryPassword1001(DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Year);
         }
 
+        /// <summary>
+        /// 生成机房管理助手每日临时密码(11.03版及以后)
+        /// </summary>
+        /// <param name="month">月份</param>
+        /// <param name="day">日</param>
+        /// <param name="year">年</param>
+        /// <returns>临时密码</returns>
+        public static string GenerateTemporaryPassword1103(int month, int day, int year)
+        {
+            var result = (month * 123 + day * 456 + year * 789 + 111).ToString();
+            return result;
+        }
 
-        
+        /// <summary>
+        /// 生成机房管理助手每日临时密码(11.03版及以后)
+        /// </summary>
+        /// <returns>密码</returns>
+        public static string GenerateTemporaryPassword1103()
+        {
+            return GenerateTemporaryPassword1103(DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Year);
+        }
+        #endregion
+
         /// <summary>
         /// 加密密码第一步
         /// </summary>
@@ -96,8 +130,8 @@ namespace T4CLLibrary.Jfglzs
             }
             else if (passwordType == PasswordType.D)
             {
-                key = Encoding.UTF8.GetBytes(str2.Substring(0,8));
-                iv = Encoding.UTF8.GetBytes(str2.Substring(1,8));
+                key = Encoding.UTF8.GetBytes(str2.Substring(0, 8));
+                iv = Encoding.UTF8.GetBytes(str2.Substring(1, 8));
             }
             else
             {
@@ -125,6 +159,7 @@ namespace T4CLLibrary.Jfglzs
                 }
             }
         }
+
         #region 9.99版以前
         private static string SecondStepOfEncryptingPassword(string inputString)
         {
@@ -369,20 +404,34 @@ namespace T4CLLibrary.Jfglzs
         }
         #endregion
 
-
+        #region 11.03 - 11.3版
+        public static string EncryptPassword1103(string string_0)
+        {
+            string result;
+            using (SHA256 sha = SHA256.Create())
+            {
+                byte[] array = sha.ComputeHash(Encoding.UTF8.GetBytes(string_0 + "bfdshgs"));
+                StringBuilder stringBuilder = new StringBuilder();
+                foreach (byte b in array)
+                {
+                    stringBuilder.Append(b.ToString("x2"));
+                }
+                result = stringBuilder.ToString();
+            }
+            return result;
+        }
+        #endregion
 
         public static void SetEncryptedPassword(string encryptedPassword,PasswordType passwordType = PasswordType.A) 
         { 
-            
-
-            if(passwordType == PasswordType.A || passwordType == PasswordType.B || passwordType == PasswordType.C)
+            if(passwordType != PasswordType.D)
             {
                 using (RegistryKey registryKey = Registry.CurrentUser.CreateSubKey("Software"))
                 {
                     registryKey.SetValue("n", encryptedPassword);
                 }
             }
-            else if (passwordType == PasswordType.D)
+            else
             {
                 using (RegistryKey registryKey = Registry.LocalMachine.CreateSubKey("Software"))
                 {

@@ -35,8 +35,8 @@ namespace T4CLLibrary.Mythware
                 WindowsAPIs.CloseHandle(hNetFilter);
                 throw new Win32Exception(Marshal.GetLastWin32Error());
             }
-            uint bytesReturned;
-            bool ioControlResult = WindowsAPIs.DeviceIoControl(hNetFilter, 0x120014u, IntPtr.Zero, 0, IntPtr.Zero, 0, out bytesReturned, IntPtr.Zero);
+
+            bool ioControlResult = WindowsAPIs.DeviceIoControl(hNetFilter, 0x120014u, IntPtr.Zero, 0, IntPtr.Zero, 0, out _, IntPtr.Zero);
             if (!ioControlResult)
             {
                 WindowsAPIs.CloseHandle(hNetFilter);
@@ -76,10 +76,9 @@ namespace T4CLLibrary.Mythware
                 WindowsAPIs.CloseHandle(hNetFilter);
                 throw new Win32Exception(Marshal.GetLastWin32Error());
             }
-            uint bytesReturned;
             bool ioControlResult;
 
-            ioControlResult = WindowsAPIs.DeviceIoControl(hNetFilter, num, IntPtr.Zero, 0, IntPtr.Zero, 0, out bytesReturned, IntPtr.Zero);
+            ioControlResult = WindowsAPIs.DeviceIoControl(hNetFilter, num, IntPtr.Zero, 0, IntPtr.Zero, 0, out uint bytesReturned, IntPtr.Zero);
 
             if (!ioControlResult)
             {
@@ -120,8 +119,7 @@ namespace T4CLLibrary.Mythware
             {
                 fixed(uint* p = arr)
                 {
-                    uint bytesReturned;
-                    bool ioControlResult = WindowsAPIs.DeviceIoControl(hNetFilter, num, (IntPtr)p, (uint)(arr.Length * sizeof(uint)), IntPtr.Zero, 0, out bytesReturned, IntPtr.Zero);
+                    bool ioControlResult = WindowsAPIs.DeviceIoControl(hNetFilter, num, (IntPtr)p, (uint)(arr.Length * sizeof(uint)), IntPtr.Zero, 0, out uint bytesReturned, IntPtr.Zero);
                     if (!ioControlResult)
                     {
                         WindowsAPIs.CloseHandle(hNetFilter);
