@@ -14,27 +14,27 @@ namespace T4CLLibrary.Jfglzs
         /// <summary>
         /// 9.99版以前
         /// </summary>
-        A,
+        V9_9,
         /// <summary>
         /// 9.99版
         /// </summary>
-        B,
+        V9_99,
         /// <summary>
         /// 10.1版
         /// </summary>
-        C,
+        V10_1,
         /// <summary>
         /// 10.2版
         /// </summary>
-        D,
+        V10_2,
         /// <summary>
-        /// 11.3版
+        /// 11.03版
         /// </summary>
-        E,
+        V11_03,
         /// <summary>
         /// 11.6版
         /// </summary>
-        F
+        V11_6
     }
 
     public static class PasswordCracker
@@ -117,18 +117,18 @@ namespace T4CLLibrary.Jfglzs
         /// </summary>
         /// <param name="inputString">密码</param>
         /// <returns>第一步加密后的字符串</returns>
-        private static string DESEncryptAndBase64Encode(string inputString,PasswordType passwordType = PasswordType.A)
+        private static string DESEncryptAndBase64Encode(string inputString,PasswordType passwordType = PasswordType.V9_9)
         {
             string str1 = "C:\\WINDOWS";
             string str2 = "zm2025jfglzs";
             byte[] key;
             byte[] iv;
-            if (passwordType == PasswordType.B || passwordType == PasswordType.A||passwordType == PasswordType.C)
+            if (passwordType == PasswordType.V9_99 || passwordType == PasswordType.V9_9||passwordType == PasswordType.V10_1)
             {
                 key = Encoding.UTF8.GetBytes(str1.Substring(0, 8));
                 iv = Encoding.UTF8.GetBytes(str1.Substring(1, 8));
             }
-            else if (passwordType == PasswordType.D)
+            else if (passwordType == PasswordType.V10_2)
             {
                 key = Encoding.UTF8.GetBytes(str2.Substring(0, 8));
                 iv = Encoding.UTF8.GetBytes(str2.Substring(1, 8));
@@ -208,7 +208,7 @@ namespace T4CLLibrary.Jfglzs
         }
         #endregion
 
-        #region 9.99版及以后, 10.1版以前
+        #region 9.99版
 
         private static string AsciiSubTen(string input)
         {
@@ -329,7 +329,7 @@ namespace T4CLLibrary.Jfglzs
         /// </summary>
         /// <param name="encryptedPassword"></param>
         /// <returns></returns>
-        public static string EncryptPassword0999(string encryptedPassword)
+        public static string EncryptPasswordV9_99(string encryptedPassword)
         {
             string str1 = DESEncrypt(encryptedPassword);
             string str2 = AsciiSubTen(str1);
@@ -338,7 +338,7 @@ namespace T4CLLibrary.Jfglzs
         }
 
         /// <summary>
-        /// 用暴力方式解密机房管理助手密码（9.99版及以后）。
+        /// 用暴力方式解密机房管理助手密码（9.99版）。
         /// 由于加密方式的原因，解密后的密码可能会有多个结果,
         /// 大约需要30秒钟。
         /// </summary>
@@ -352,14 +352,14 @@ namespace T4CLLibrary.Jfglzs
             string base64StringCollection = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
 
             string str1 = encryptedPassword;
-            foreach(byte left in base64StringCollection)
+            foreach (byte left in base64StringCollection)
             {
                 foreach (byte right in base64StringCollection)
                 {
                     try
                     {
-                        string str2 = (char)left + str1 + (char)right;
-                        string str3 = AsciiAddTen(str2);
+                        string str2 = AsciiAddTen(str1);
+                        string str3 = $"{(char)left}{str2}{(char)right}";
                         string str4 = DESDecrypt(str3);
                         if (!(str4 is null) && IsAsciiPrintableString(str4))
                         {
@@ -387,7 +387,7 @@ namespace T4CLLibrary.Jfglzs
         #endregion
 
         #region 10.1版
-        public static string EncryptPassword1001(string password)
+        public static string EncryptPasswordV10_1(string password)
         {
             var str1 = EncryptPassword(password);
             return str1.Substring(0, 20);
@@ -395,17 +395,17 @@ namespace T4CLLibrary.Jfglzs
         #endregion
 
         #region 10.2版及以后
-        public static string EncryptPassword1002(string password)
+        public static string EncryptPasswordV10_2(string password)
         {
-            var str1 = DESEncryptAndBase64Encode(password, PasswordType.D);
+            var str1 = DESEncryptAndBase64Encode(password, PasswordType.V10_2);
             var str2 = ThirdStepOfEncryptingPassword(str1);
             var str3 = str2.Substring(0,20);
             return str3;
         }
         #endregion
 
-        #region 11.03 - 11.3版
-        public static string EncryptPassword1103(string string_0)
+        #region 11.03及以后
+        public static string EncryptPasswordV11_03(string string_0)
         {
             string result;
             using (SHA256 sha = SHA256.Create())
@@ -422,9 +422,14 @@ namespace T4CLLibrary.Jfglzs
         }
         #endregion
 
-        public static void SetEncryptedPassword(string encryptedPassword,PasswordType passwordType = PasswordType.A) 
+        /// <summary>
+        /// 设置加密后的密码到注册表
+        /// </summary>
+        /// <param name="encryptedPassword">加密后的密码</param>
+        /// <param name="passwordType">密码类型</param>
+        public static void SetEncryptedPassword(string encryptedPassword,PasswordType passwordType = PasswordType.V9_9) 
         { 
-            if(passwordType != PasswordType.D)
+            if(passwordType != PasswordType.V10_2)
             {
                 using (RegistryKey registryKey = Registry.CurrentUser.CreateSubKey("Software"))
                 {
@@ -441,6 +446,10 @@ namespace T4CLLibrary.Jfglzs
 
         }
 
+        /// <summary>
+        /// 获取注册表中的加密密码，仅支持非10.2版
+        /// </summary>
+        /// <returns>加密的密码</returns>
         public static string GetEncryptedPassword()
         {
             using (RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("Software"))

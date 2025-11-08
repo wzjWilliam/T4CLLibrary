@@ -63,7 +63,7 @@ namespace T4CLLibraryUnitTest
         [TestMethod]
         public void EncryptJfglzsPassword0999MethodTest()
         {
-            var result = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPassword0999("114514");
+            var result = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPasswordV9_99("114514");
             Assert.AreEqual("YjP-b_P?-K", result);
         }
 
@@ -77,15 +77,15 @@ namespace T4CLLibraryUnitTest
         [TestMethod]
         public void EncryptJfglzsPassword1002MethodTest2()
         {
-            var result = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPassword1002("1111111");
+            var result = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPasswordV10_2("1111111");
             Assert.AreEqual("3271363b01ce14de5005", result);
         }
 
         [TestMethod]
         public void GetJfglzsRandomProcessNameNewMethod()
         {
-            var result1 = T4CLLibrary.Jfglzs.ProcessKiller.GetRandomProcessName1002(55);
-            var result2 = T4CLLibrary.Jfglzs.ProcessKiller.GetRandomProcessName1002(55);
+            var result1 = T4CLLibrary.Jfglzs.ProcessKiller.GetRandomProcessNameV10_2(55);
+            var result2 = T4CLLibrary.Jfglzs.ProcessKiller.GetRandomProcessNameV10_2(55);
             var flag = result1 == result2 && result1 == "ovtts";
             Assert.IsTrue(flag);
         }

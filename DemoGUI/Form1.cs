@@ -28,7 +28,7 @@ namespace DemoGUI
         bool _isHeartBeating = false;
         List<PhysicalAddress> macAddrs = new List<PhysicalAddress>();
         PhysicalAddress chosenMacAddr;
-        T4CLLibrary.Jfglzs.PasswordType passwordType = T4CLLibrary.Jfglzs.PasswordType.A;
+        T4CLLibrary.Jfglzs.PasswordType passwordType = T4CLLibrary.Jfglzs.PasswordType.V9_9;
         public Form1()
         {
             InitializeComponent();
@@ -121,11 +121,11 @@ namespace DemoGUI
             {
                 switch (passwordType)
                 {
-                    case T4CLLibrary.Jfglzs.PasswordType.E:
-                        T4CLLibrary.Jfglzs.ProcessKiller.KillAllProcess1103();
+                    case T4CLLibrary.Jfglzs.PasswordType.V11_03:
+                        T4CLLibrary.Jfglzs.ProcessKiller.KillAllProcessV11_03();
                         break;
-                    case T4CLLibrary.Jfglzs.PasswordType.F:
-                        T4CLLibrary.Jfglzs.ProcessKiller.KillAllProcess1160();
+                    case T4CLLibrary.Jfglzs.PasswordType.V11_6:
+                        T4CLLibrary.Jfglzs.ProcessKiller.KillAllProcessV11_6();
                         break;
                     default:
                         T4CLLibrary.Jfglzs.ProcessKiller.KillAllProcesses();
@@ -184,20 +184,20 @@ namespace DemoGUI
             string pwd;
             switch (passwordType)
             {
-                case T4CLLibrary.Jfglzs.PasswordType.A:
+                case T4CLLibrary.Jfglzs.PasswordType.V9_9:
                     pwd = T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword();
                     break;
-                case T4CLLibrary.Jfglzs.PasswordType.B:
+                case T4CLLibrary.Jfglzs.PasswordType.V9_99:
                     pwd = T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword();
                     break;
-                case T4CLLibrary.Jfglzs.PasswordType.C:
+                case T4CLLibrary.Jfglzs.PasswordType.V10_1:
                     
                     pwd = T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword1001();
                     break;
-                case T4CLLibrary.Jfglzs.PasswordType.D:
+                case T4CLLibrary.Jfglzs.PasswordType.V10_2:
                     pwd = T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword1001();
                     break;
-                case T4CLLibrary.Jfglzs.PasswordType.E:
+                case T4CLLibrary.Jfglzs.PasswordType.V11_03:
                     pwd = T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword1103();
                     break;
                 default:
@@ -224,29 +224,29 @@ namespace DemoGUI
                 switch (passwordType)
                 {
                     
-                    case T4CLLibrary.Jfglzs.PasswordType.A:
+                    case T4CLLibrary.Jfglzs.PasswordType.V9_9:
                         encryptedPwd = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPassword(pwd);
                         T4CLLibrary.Jfglzs.PasswordCracker.SetEncryptedPassword(encryptedPwd);
                         break;
-                    case T4CLLibrary.Jfglzs.PasswordType.B:
-                        encryptedPwd = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPassword0999(pwd);
+                    case T4CLLibrary.Jfglzs.PasswordType.V9_99:
+                        encryptedPwd = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPasswordV9_99(pwd);
                         T4CLLibrary.Jfglzs.PasswordCracker.SetEncryptedPassword(encryptedPwd);
                         break;
-                    case T4CLLibrary.Jfglzs.PasswordType.C:
-                        encryptedPwd = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPassword1001(pwd);
-                        T4CLLibrary.Jfglzs.PasswordCracker.SetEncryptedPassword(encryptedPwd, T4CLLibrary.Jfglzs.PasswordType.C);
+                    case T4CLLibrary.Jfglzs.PasswordType.V10_1:
+                        encryptedPwd = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPasswordV10_1(pwd);
+                        T4CLLibrary.Jfglzs.PasswordCracker.SetEncryptedPassword(encryptedPwd, T4CLLibrary.Jfglzs.PasswordType.V10_1);
                         break;
-                    case T4CLLibrary.Jfglzs.PasswordType.D:
-                        encryptedPwd = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPassword1002(pwd);
-                        T4CLLibrary.Jfglzs.PasswordCracker.SetEncryptedPassword(encryptedPwd,T4CLLibrary.Jfglzs.PasswordType.D);
+                    case T4CLLibrary.Jfglzs.PasswordType.V10_2:
+                        encryptedPwd = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPasswordV10_2(pwd);
+                        T4CLLibrary.Jfglzs.PasswordCracker.SetEncryptedPassword(encryptedPwd,T4CLLibrary.Jfglzs.PasswordType.V10_2);
                         break;
-                    case T4CLLibrary.Jfglzs.PasswordType.E:
-                        encryptedPwd = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPassword1103(pwd);
-                        T4CLLibrary.Jfglzs.PasswordCracker.SetEncryptedPassword(encryptedPwd, T4CLLibrary.Jfglzs.PasswordType.E);
+                    case T4CLLibrary.Jfglzs.PasswordType.V11_03:
+                        encryptedPwd = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPasswordV11_03(pwd);
+                        T4CLLibrary.Jfglzs.PasswordCracker.SetEncryptedPassword(encryptedPwd, T4CLLibrary.Jfglzs.PasswordType.V11_03);
                         break;
-                    case T4CLLibrary.Jfglzs.PasswordType.F:
-                        encryptedPwd = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPassword1103(pwd);//1160同1103
-                        T4CLLibrary.Jfglzs.PasswordCracker.SetEncryptedPassword(encryptedPwd, T4CLLibrary.Jfglzs.PasswordType.E);
+                    case T4CLLibrary.Jfglzs.PasswordType.V11_6:
+                        encryptedPwd = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPasswordV11_03(pwd);//1160同1103
+                        T4CLLibrary.Jfglzs.PasswordCracker.SetEncryptedPassword(encryptedPwd, T4CLLibrary.Jfglzs.PasswordType.V11_03);
                         break;
                     default:
                         break;
@@ -285,11 +285,14 @@ namespace DemoGUI
 
         private async void buttonGetJFPwd_Click(object sender, EventArgs e)
         {
-            if (passwordType != T4CLLibrary.Jfglzs.PasswordType.B)
+            if (passwordType != T4CLLibrary.Jfglzs.PasswordType.V9_99)
             {
                 ShowError("仅能在9.99版获取密码");
                 return;
             }
+
+            buttonGetJFPwd.Enabled = false;
+
             try
             {
                 labelJFPwdCrackState.Text = "正在获取密码...";
@@ -314,7 +317,10 @@ namespace DemoGUI
             finally
             {
                 labelJFPwdCrackState.Text = "";
+                buttonGetJFPwd.Enabled = true;
             }
+
+
         }
 
         private void buttonGetJYPwd_Click(object sender, EventArgs e)
@@ -536,7 +542,7 @@ namespace DemoGUI
             //{
             //    ShowError("错误: " + ex.Message);
             //}
-            var rndName1103 = T4CLLibrary.Jfglzs.ProcessKiller.GetRandomProcessName1103();
+            var rndName1103 = T4CLLibrary.Jfglzs.ProcessKiller.GetRandomProcessNameV11_03();
             ShowInfo($"1103进程名: {rndName1103}");
 
         }
@@ -569,22 +575,22 @@ namespace DemoGUI
         //实际9.99版，懒得改名字了
         private void radioButton09991002_CheckedChanged(object sender, EventArgs e)
         {
-            passwordType = T4CLLibrary.Jfglzs.PasswordType.B;
+            passwordType = T4CLLibrary.Jfglzs.PasswordType.V9_99;
         }
 
         private void radioBtnL0999_CheckedChanged(object sender, EventArgs e)
         {
-            passwordType = T4CLLibrary.Jfglzs.PasswordType.A;
+            passwordType = T4CLLibrary.Jfglzs.PasswordType.V9_9;
         }
 
         private void radioButtonG1002_CheckedChanged(object sender, EventArgs e)
         {
-            passwordType = T4CLLibrary.Jfglzs.PasswordType.D;
+            passwordType = T4CLLibrary.Jfglzs.PasswordType.V10_2;
         }
 
         private void radioBtn1001_CheckedChanged(object sender, EventArgs e)
         {
-            passwordType = T4CLLibrary.Jfglzs.PasswordType.C;
+            passwordType = T4CLLibrary.Jfglzs.PasswordType.V10_1;
         }
 
         private void buttonEnableNet_MouseClick(object sender, MouseEventArgs e)
@@ -828,12 +834,12 @@ namespace DemoGUI
 
         private void radioButton1103_CheckedChanged(object sender, EventArgs e)
         {
-            passwordType = T4CLLibrary.Jfglzs.PasswordType.E;
+            passwordType = T4CLLibrary.Jfglzs.PasswordType.V11_03;
         }
 
         private void radioButton1160_CheckedChanged(object sender, EventArgs e)
         {
-            passwordType = T4CLLibrary.Jfglzs.PasswordType.F;
+            passwordType = T4CLLibrary.Jfglzs.PasswordType.V11_6;
         }
     }
 }

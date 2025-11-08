@@ -82,7 +82,7 @@ namespace Demo
                 string result;
                 if (useNewVer)
                 {
-                    result = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPassword0999(password);
+                    result = T4CLLibrary.Jfglzs.PasswordCracker.EncryptPasswordV9_99(password);
                 }
                 else
                 {
@@ -190,17 +190,22 @@ namespace Demo
             var auto = Console.ReadLine();
             if (auto == "Y")
             {
-                var tempPassword = T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword();
-                Console.WriteLine($"临时密码为: {tempPassword}");
+                ShowAllJfglzsTempPassword(DateTime.Now);
             }
             else
             {
                 Console.Write("日期(格式: yyyy-MM-dd):");
                 var date = Console.ReadLine();
                 DateTime dt = DateTime.Parse(date);
-                var tempPassword = T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword(dt.Month,dt.Day,dt.Year);
-                Console.WriteLine($"临时密码为: {tempPassword}");
+                ShowAllJfglzsTempPassword(dt);
             }
+        }
+
+        static void ShowAllJfglzsTempPassword(DateTime dt)
+        {
+            Console.WriteLine($"老版本(<10.1): {T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword(dt.Month,dt.Day,dt.Year)}");
+            Console.WriteLine($"新版本(10.1): {T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword1001(dt.Month, dt.Day, dt.Year)}");
+            Console.WriteLine($"最新版本(11.03): {T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword1103(dt.Month, dt.Day, dt.Year)}");
         }
 
         static void Main(string[] args)
@@ -239,7 +244,7 @@ namespace Demo
                         Console.WriteLine("已结束机房管理助手进程");
                         break;
                     case "8":
-                        Console.WriteLine("是否使用新版本(9.99及以后)的加密方式？(Y/N): ");
+                        Console.WriteLine("是否使用新版本(9.99)的加密方式？(Y/N): ");
                         var useNewVer = Console.ReadLine() == "Y";
                         JfglzsPasswordCracker(useNewVer);
                         break;
