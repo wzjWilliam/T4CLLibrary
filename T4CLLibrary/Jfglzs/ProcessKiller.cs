@@ -60,6 +60,7 @@ namespace T4CLLibrary.Jfglzs
                 num9++;
             }
             while (num9 <= 5);
+            CustomRandom.Reset();
             return withExtensionName ? text + ".exe" : text;
         }
 
@@ -83,6 +84,7 @@ namespace T4CLLibrary.Jfglzs
                 num9++;
             }
             while (num9 <= 5);
+            CustomRandom.Reset();
             return withExtensionName ? text + ".exe" : text;
         }
 

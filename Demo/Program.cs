@@ -204,8 +204,8 @@ namespace Demo
         static void ShowAllJfglzsTempPassword(DateTime dt)
         {
             Console.WriteLine($"老版本(<10.1): {T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword(dt.Month,dt.Day,dt.Year)}");
-            Console.WriteLine($"新版本(10.1): {T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword1001(dt.Month, dt.Day, dt.Year)}");
-            Console.WriteLine($"最新版本(11.03): {T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPassword1103(dt.Month, dt.Day, dt.Year)}");
+            Console.WriteLine($"新版本(10.1): {T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPasswordV10_1(dt.Month, dt.Day, dt.Year)}");
+            Console.WriteLine($"最新版本(11.03): {T4CLLibrary.Jfglzs.PasswordCracker.GenerateTemporaryPasswordV11_03(dt.Month, dt.Day, dt.Year)}");
         }
 
         static void Main(string[] args)

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace T4CLLibrary.Jfglzs
 {
-    public enum PasswordType
+    public enum JfglzsVersion
     {
         /// <summary>
         /// 9.99版以前
@@ -32,9 +32,13 @@ namespace T4CLLibrary.Jfglzs
         /// </summary>
         V11_03,
         /// <summary>
+        /// 11.06版
+        /// </summary>
+        V11_06,
+        /// <summary>
         /// 11.6版
         /// </summary>
-        V11_6
+        V11_6,
     }
 
     public static class PasswordCracker
@@ -71,7 +75,7 @@ namespace T4CLLibrary.Jfglzs
         /// <param name="day">日</param>
         /// <param name="year">年</param>
         /// <returns>密码</returns>
-        public static string GenerateTemporaryPassword1001(int month, int day, int year)
+        public static string GenerateTemporaryPasswordV10_1(int month, int day, int year)
         {
             long monthComponent = month * 13;
             long dayComponent = day * 57;
@@ -84,9 +88,9 @@ namespace T4CLLibrary.Jfglzs
         /// 生成机房管理助手每日临时密码(10.1版及以后)
         /// </summary>
         /// <returns>密码</returns>
-        public static string GenerateTemporaryPassword1001()
+        public static string GenerateTemporaryPasswordV10_1()
         {
-            return GenerateTemporaryPassword1001(DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Year);
+            return GenerateTemporaryPasswordV10_1(DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Year);
         }
 
         /// <summary>
@@ -96,7 +100,7 @@ namespace T4CLLibrary.Jfglzs
         /// <param name="day">日</param>
         /// <param name="year">年</param>
         /// <returns>临时密码</returns>
-        public static string GenerateTemporaryPassword1103(int month, int day, int year)
+        public static string GenerateTemporaryPasswordV11_03(int month, int day, int year)
         {
             var result = (month * 123 + day * 456 + year * 789 + 111).ToString();
             return result;
@@ -106,9 +110,42 @@ namespace T4CLLibrary.Jfglzs
         /// 生成机房管理助手每日临时密码(11.03版及以后)
         /// </summary>
         /// <returns>密码</returns>
-        public static string GenerateTemporaryPassword1103()
+        public static string GenerateTemporaryPasswordV11_03()
         {
-            return GenerateTemporaryPassword1103(DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Year);
+            return GenerateTemporaryPasswordV11_03(DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Year);
+        }
+
+        public static string GenerateTemporaryPasswordV11_06(int month, int day,char lastChar)
+        {
+            var total = 258 * lastChar + month * 159 + day * 357;
+
+            // 转换为七进制
+            string result = "";
+            while (total > 0)
+            {
+                int remainder = (int)(total % 7);
+                result = remainder.ToString() + result;
+                total /= 7;
+            }
+
+            return result;
+        }
+
+        public static string GenerateTemporaryPasswordV11_06()
+        {
+            char lastChar = GetLastComputerNameCharacter();
+            return GenerateTemporaryPasswordV11_06(DateTime.Now.Month, DateTime.Now.Day, lastChar);
+        }
+
+        private static char GetLastComputerNameCharacter()
+        {
+            string computerName = Environment.MachineName;
+            if (string.IsNullOrEmpty(computerName))
+            {
+                return (char)0;
+            }
+            char lastChar = computerName[computerName.Length - 1];
+            return lastChar;
         }
         #endregion
 
@@ -117,18 +154,18 @@ namespace T4CLLibrary.Jfglzs
         /// </summary>
         /// <param name="inputString">密码</param>
         /// <returns>第一步加密后的字符串</returns>
-        private static string DESEncryptAndBase64Encode(string inputString,PasswordType passwordType = PasswordType.V9_9)
+        private static string DESEncryptAndBase64Encode(string inputString,JfglzsVersion passwordType = JfglzsVersion.V9_9)
         {
             string str1 = "C:\\WINDOWS";
             string str2 = "zm2025jfglzs";
             byte[] key;
             byte[] iv;
-            if (passwordType == PasswordType.V9_99 || passwordType == PasswordType.V9_9||passwordType == PasswordType.V10_1)
+            if (passwordType == JfglzsVersion.V9_99 || passwordType == JfglzsVersion.V9_9||passwordType == JfglzsVersion.V10_1)
             {
                 key = Encoding.UTF8.GetBytes(str1.Substring(0, 8));
                 iv = Encoding.UTF8.GetBytes(str1.Substring(1, 8));
             }
-            else if (passwordType == PasswordType.V10_2)
+            else if (passwordType == JfglzsVersion.V10_2)
             {
                 key = Encoding.UTF8.GetBytes(str2.Substring(0, 8));
                 iv = Encoding.UTF8.GetBytes(str2.Substring(1, 8));
@@ -397,7 +434,7 @@ namespace T4CLLibrary.Jfglzs
         #region 10.2版及以后
         public static string EncryptPasswordV10_2(string password)
         {
-            var str1 = DESEncryptAndBase64Encode(password, PasswordType.V10_2);
+            var str1 = DESEncryptAndBase64Encode(password, JfglzsVersion.V10_2);
             var str2 = ThirdStepOfEncryptingPassword(str1);
             var str3 = str2.Substring(0,20);
             return str3;
@@ -427,9 +464,9 @@ namespace T4CLLibrary.Jfglzs
         /// </summary>
         /// <param name="encryptedPassword">加密后的密码</param>
         /// <param name="passwordType">密码类型</param>
-        public static void SetEncryptedPassword(string encryptedPassword,PasswordType passwordType = PasswordType.V9_9) 
+        public static void SetEncryptedPassword(string encryptedPassword,JfglzsVersion passwordType = JfglzsVersion.V9_9) 
         { 
-            if(passwordType != PasswordType.V10_2)
+            if(passwordType != JfglzsVersion.V10_2)
             {
                 using (RegistryKey registryKey = Registry.CurrentUser.CreateSubKey("Software"))
                 {

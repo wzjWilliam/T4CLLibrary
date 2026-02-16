@@ -62,6 +62,9 @@
             this.textBoxIP = new System.Windows.Forms.TextBox();
             this.buttonDbg = new System.Windows.Forms.Button();
             this.groupBoxOther = new System.Windows.Forms.GroupBox();
+            this.radioButton1106 = new System.Windows.Forms.RadioButton();
+            this.buttonGetJFVer = new System.Windows.Forms.Button();
+            this.radioButton1160 = new System.Windows.Forms.RadioButton();
             this.radioButton1103 = new System.Windows.Forms.RadioButton();
             this.textBoxDbg = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -102,7 +105,7 @@
             this.buttonRSUnblackScrn = new System.Windows.Forms.Button();
             this.buttonRSBlackScrn = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.radioButton1160 = new System.Windows.Forms.RadioButton();
+            this.checkBox2021Ver = new System.Windows.Forms.CheckBox();
             this.groupBoxProc.SuspendLayout();
             this.groupBoxPwd.SuspendLayout();
             this.groupBoxUdp.SuspendLayout();
@@ -341,6 +344,7 @@
             // 
             // groupBoxUdp
             // 
+            this.groupBoxUdp.Controls.Add(this.checkBox2021Ver);
             this.groupBoxUdp.Controls.Add(this.buttonGetPort);
             this.groupBoxUdp.Controls.Add(this.buttonSendReboot);
             this.groupBoxUdp.Controls.Add(this.buttonSendShutdown);
@@ -430,7 +434,7 @@
             this.textBoxPort.Name = "textBoxPort";
             this.textBoxPort.Size = new System.Drawing.Size(221, 35);
             this.textBoxPort.TabIndex = 22;
-            this.textBoxPort.Text = "4705";
+            this.textBoxPort.Text = "4988";
             // 
             // label1
             // 
@@ -448,7 +452,7 @@
             this.textBoxIP.Name = "textBoxIP";
             this.textBoxIP.Size = new System.Drawing.Size(245, 35);
             this.textBoxIP.TabIndex = 20;
-            this.textBoxIP.Text = "255.255.255.255";
+            this.textBoxIP.Text = "192.168.248.149";
             // 
             // buttonDbg
             // 
@@ -463,6 +467,8 @@
             // 
             // groupBoxOther
             // 
+            this.groupBoxOther.Controls.Add(this.radioButton1106);
+            this.groupBoxOther.Controls.Add(this.buttonGetJFVer);
             this.groupBoxOther.Controls.Add(this.radioButton1160);
             this.groupBoxOther.Controls.Add(this.radioButton1103);
             this.groupBoxOther.Controls.Add(this.textBoxDbg);
@@ -480,6 +486,41 @@
             this.groupBoxOther.TabStop = false;
             this.groupBoxOther.Text = "其他";
             // 
+            // radioButton1106
+            // 
+            this.radioButton1106.AutoSize = true;
+            this.radioButton1106.Location = new System.Drawing.Point(266, 234);
+            this.radioButton1106.Name = "radioButton1106";
+            this.radioButton1106.Size = new System.Drawing.Size(95, 28);
+            this.radioButton1106.TabIndex = 37;
+            this.radioButton1106.TabStop = true;
+            this.radioButton1106.Text = "11.06";
+            this.radioButton1106.UseVisualStyleBackColor = true;
+            this.radioButton1106.CheckedChanged += new System.EventHandler(this.radioButton1106_CheckedChanged);
+            // 
+            // buttonGetJFVer
+            // 
+            this.buttonGetJFVer.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonGetJFVer.Location = new System.Drawing.Point(6, 186);
+            this.buttonGetJFVer.Name = "buttonGetJFVer";
+            this.buttonGetJFVer.Size = new System.Drawing.Size(169, 83);
+            this.buttonGetJFVer.TabIndex = 36;
+            this.buttonGetJFVer.Text = "获取版本";
+            this.buttonGetJFVer.UseVisualStyleBackColor = true;
+            this.buttonGetJFVer.Click += new System.EventHandler(this.buttonGetJFVer_Click);
+            // 
+            // radioButton1160
+            // 
+            this.radioButton1160.AutoSize = true;
+            this.radioButton1160.Location = new System.Drawing.Point(367, 58);
+            this.radioButton1160.Name = "radioButton1160";
+            this.radioButton1160.Size = new System.Drawing.Size(83, 28);
+            this.radioButton1160.TabIndex = 35;
+            this.radioButton1160.TabStop = true;
+            this.radioButton1160.Text = "11.6";
+            this.radioButton1160.UseVisualStyleBackColor = true;
+            this.radioButton1160.CheckedChanged += new System.EventHandler(this.radioButton1160_CheckedChanged);
+            // 
             // radioButton1103
             // 
             this.radioButton1103.AutoSize = true;
@@ -496,7 +537,7 @@
             // 
             this.textBoxDbg.Location = new System.Drawing.Point(6, 135);
             this.textBoxDbg.Name = "textBoxDbg";
-            this.textBoxDbg.Size = new System.Drawing.Size(239, 35);
+            this.textBoxDbg.Size = new System.Drawing.Size(254, 35);
             this.textBoxDbg.TabIndex = 33;
             // 
             // label3
@@ -894,17 +935,15 @@
             this.buttonRSBlackScrn.UseVisualStyleBackColor = true;
             this.buttonRSBlackScrn.Click += new System.EventHandler(this.buttonRSBlackScrn_Click);
             // 
-            // radioButton1160
+            // checkBox2021Ver
             // 
-            this.radioButton1160.AutoSize = true;
-            this.radioButton1160.Location = new System.Drawing.Point(266, 234);
-            this.radioButton1160.Name = "radioButton1160";
-            this.radioButton1160.Size = new System.Drawing.Size(83, 28);
-            this.radioButton1160.TabIndex = 35;
-            this.radioButton1160.TabStop = true;
-            this.radioButton1160.Text = "11.6";
-            this.radioButton1160.UseVisualStyleBackColor = true;
-            this.radioButton1160.CheckedChanged += new System.EventHandler(this.radioButton1160_CheckedChanged);
+            this.checkBox2021Ver.AutoSize = true;
+            this.checkBox2021Ver.Location = new System.Drawing.Point(560, 24);
+            this.checkBox2021Ver.Name = "checkBox2021Ver";
+            this.checkBox2021Ver.Size = new System.Drawing.Size(156, 28);
+            this.checkBox2021Ver.TabIndex = 27;
+            this.checkBox2021Ver.Text = "2021版极域";
+            this.checkBox2021Ver.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -1012,6 +1051,9 @@
         private System.Windows.Forms.TextBox textBoxMachineName;
         private System.Windows.Forms.RadioButton radioButton1103;
         private System.Windows.Forms.RadioButton radioButton1160;
+        private System.Windows.Forms.Button buttonGetJFVer;
+        private System.Windows.Forms.RadioButton radioButton1106;
+        private System.Windows.Forms.CheckBox checkBox2021Ver;
     }
 }
 
